@@ -1,0 +1,15 @@
+Hier ist unsere gemeinsame Dokumentation zu finden
+Formatvorlage: Starte mit Datum in Jahr_Monat_Tag_Startzeitpunkt: Tätigkeit; Dauer (Minuten); Contributor
+
+2021_02_02_13:15: Einrichtung des Repository über Pycharm, Upload der Aufgabenstellung, Zusammensuchen des Quellcodes sowie Ordnen des Repos zwecks Übersichtlichkeit: Zip-Archiv von AlphaZero im Repo,
+Version 1 der Projektplanung erstellen mit Todos sodass Pycharm sie erkennt & einbettet, Versionen der Webseiten als PDFs ins Repo eingefügt,  Problem beim runterladen von pygame: SSLError, Loesung: Anaconda nutzen um Pycharm zu starten ,
+;60 Mins;Philipp
+
+2021_02_05_19:04: Besprechung: Git-Einrichtung mit Umzug von THM auf reguläres Git wegen besserer Datenverwaltung ( AlphaZero ist gross), GPU ist heute morgen bestellt worden, Besprechung Projektplanung, Recherche Präsentationszeitpunkt
+andere Formalia neben der Aufgabenstellung: Dokumentation & Präsentationserstellung; 60 Mins; Philipp & Simon
+
+2021_02_12_20:05: Kopieren des Repo nach GitHub. Mit einiger Übung definitiv einfacher; 60 Mins; Philipp
+
+2021_02_15_21:30: Erster Überblick & gemeinsame Einarbeitung in das Repo, Planung des gemeinsamen Vorgehens, Diskussionen über mögliche Strategie-Implementationen; 90 Mins; Philipp & Simon
+
+2021_02_17_09:30: Erste Modellierungsidee notiert und visualisiert; 45 Mins, Philipp

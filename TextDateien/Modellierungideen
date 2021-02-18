@@ -1,0 +1,27 @@
+1.Phasen: Es gibt 4 Phasen in einem Muehle-Spiel:
+    I: Auslegen der Steine
+    II: Einen eigenen Stein eliminieren
+    III: Einen Stein bewegen (muessen)
+    IV: Einen eigenen Stein eliminieren
+
+Implementierung des Spielfeldes:
+---------
+|A--B--C|
+|-D-E-F-|
+|--GHI--|
+|JKL-MNO|
+|--PQR--|
+|-S-T-U-|
+|V--W--Y|
+---------
+
+Übergebe den Vektor als:
+{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,Y}
+
+Checken ob eine Muehle vorhanden ist:
+Speichere mögliche Kombinationen für jede Position ab:
+A: ABC, AJV
+B: ABC, BEH
+usw.
+
+Wenn Stein auf Position gezogen wird, iteriere ueber die Kombinationen (optimal: minus die, aus der der Stein kommt, dort kann keine Muehle sein)

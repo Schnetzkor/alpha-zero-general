@@ -1,0 +1,52 @@
+1.todo I: Gemeinsame Besprechung über Discord zur Projektplanung mit Meilensteinen usw.
+
+    Aufteilung der Aufgaben in Meilensteine:
+      todo:  Aufgabe 1: Modell verstehen
+                 1. Informationen eingesehen
+                 2. Modell verstanden
+      todo:  Aufgabe 2: Repo nutzbar machen
+                1. Repository heruntergeladen
+                2. Readme gelesen & verstanden
+                3. Repository zum arbeiten gebracht
+                4. Quellcode verstanden und kompetent nutzbar gemacht
+      todo:  Aufgabe 3: Tic-Tac-Toe
+                1. Repository für Tic-Tac-Toe konfiguriert
+                2. Modell für Tic-Tac-Toe trainiert
+
+      done: geklärt 2021_02_05  Zwischenstand: Klärung, inwieweit eine GPU nutzbar ist - selber organisiert, oder Zeit gemietet auf Server, intern oder extern, Simon
+
+      todo:  Aufgabe 4: Muehle mit AlphaZero
+                1. Implementieren von Muehle:
+                    1. Regeln für Muehle nachschlagen & formalisieren
+                    2. Nachvollziehen, wie Regeln anderer Spiele bereits implementiert sind in Game.py
+                    3. Abstrakte Klasse für Muehle analog zu anderen regeln in Game.py implementieren
+                2. Unverändertes Modell mit den Muehle-Regeln in Game.py trainieren
+      todo:  Aufgabe 5: Muehle App für 2 Personen ohne KI
+                1. Sich mit pygame vertraut machen
+                2. Eine GUI mit pygame implementieren
+                3. Spielregeln formalisiert aus Game.py übertragen
+                4. Gamestate so representieren, dass er an KI uebergeben werden kann (S.6.1.)
+      todo:  Aufgabe 6: KI-Implementierung für App
+                1. Uebergabe des Brettzustandes an Modell
+                2. Erhalt des Zuges als Output
+
+        Ab hier Bonus:
+
+        Aufgabe 7: Klassische KI fuer Muehle
+            1. Alpha-Beta-Pruning-Umsetzung nachvollziehen
+            2. Input-Output-Pattern analog zu 5.4. implementieren
+            3. Modell trainieren
+        Aufgabe 8: Testen der KIs
+            1. Gegeneinander spielen lassen
+            2. Testen gegen Internet-KIs.
+            3. Auswertung der Ergebnisse
+            4. Schlagbarkeit evaluieren. (Deterministisches Spiel mit entsprechendem Automat, wahrscheinlich reicht ein Blick in den geprunten Baum, plus Performanzvergleich zu AlphaZero)
+
+
+todo II:Präsentation erstellen
+
+Präsentationszeitpunkt: 24.02.2021
+
+todo III:Dokumentation erstellen
+
+Abgabedatum: 28.02.2021

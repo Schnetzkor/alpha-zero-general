@@ -1,0 +1,57 @@
+Aufgabe 1 (Simplifiziertes AlphaZero-Framework verstehen). Es
+gibt eine simplifizierte Open-Source Implementierung des AlphaZero Frameworks.
+Schauen Sie sich die Information zur generellen Idee von AlphaZero
+und den Ergebnissen an:
+
+https://deepmind.com/blog/article/alphazero-shedding-new-light-grand-games-chess-shogi-and-go
+
+Aufgabe 2 (Tic-Tac-Toe mit AlphaZero). Laden Sie sich das Repository unter
+
+https://github.com/suragnair/alpha-zero-general
+
+herunter und bringen Sie es zum Laufen. Probieren Sie nach dem Tutorial in der Datei
+README.md vorzugehen. Machen Sie sich mit dem Quellcode und der Benutzung
+vertraut.
+
+Aufgabe 3 (Erstes eigenes Modell mit AlphaZero). Versuchen Sie ein
+eigenes Modell fuer Tic-Tac-Toe zu trainieren. Alles dazu benoetigte ist im
+Repository vorhanden. Zum Training fuer komplexere Spiele ist es unbedingt
+noetig mit einer NVIDEA GPU zu arbeiten. In dieser Aufgabe koennen Sie
+versuchen ein nur sehr kurzes Training mit einer CPU laufen zu lassen.
+
+Aufgabe 4 (Muehle mit AlphaZero). Nun sollen Sie eine KI fuer ein neues
+Spiel trainieren. Hierzu muessen Sie die Spielregeln fuer Muehle implementieren.
+Um ein neues Spiel zu definieren, muss die abstrakte Klasse in Game.py des
+Projekts implementiert werden. Implementieren Sie hierfuer die Regeln des
+Spiels Muehle und lassen Sie so ein neues Modell trainieren.
+
+Aufgabe 5 (Eine Muehle App). Implementieren Sie eine Application mit
+der zwei Spieler gegeneinander Muehle spielen koennen. Die Spielregeln haben
+Sie ja bereits in der vorherigen Aufgabe implementiert, diese koennen wiederverwendet
+werden. Benutzen Sie z.B. pygame, um eine GUI zum Spiel zu erstellen.
+Anleitung zu pygame:
+
+https://realpython.com/pygame-a-primer/
+
+Aufgabe 6 (Spielen gegen die KI). Erweitern Sie Ihre App um die Moeglichkeit
+gegen die von Ihnen trainierte KI zu trainieren. Hierfuer muessen Sie,
+um den Spielzug der KI zu bekommen, den aktuellen Zustand des Spielbretts
+als Input in das trainierte Modell geben und basierend auf dem Ergebnis einen
+Spielzug durchfuehren.
+
+Bonusaufgaben für Langeweile:
+
+Aufgabe 7 (Eine klassische KI fuer Muehle). Implementieren Sie eine
+zweite KI fuer Muehle ohne Benutzung des AlphaZero Frameworks. Stattdessen
+soll hier eine klassische KI mithilfe von Alpha-Beta-Pruning implementiert
+werden. Sie koennen hierfuer eine Programmiersprache Ihrer Wahl benutzen,
+es sollte jedoch moeglich sein genauso wie in der vorherigen Aufgabe gegen
+diese KI mit ihrer Muehle App zu spielen.
+
+Aufgabe 8 (Auswertung der KI). Spielen Sie selber gegen beide von
+ihnen Implementierten KIs und lassen Sie auch die KIs miteinander spielen.
+Werten Sie aus welche KI staerker ist und ob Sie eine der beiden KIs noch
+schlagen koennten. Testen Sie ihre staerkste KI auch gegen beliebige im Internet
+verfuegbare Muehleprogramme. Falls Sie nur eine der KIs implementiert haben,
+muessen Sie natuerlich nur diese KI auswerten.
+
