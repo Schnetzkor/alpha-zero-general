@@ -1,15 +1,17 @@
+import numpy as np
 '''
-Board class for the game of TicTacToe.
-Default board size is 3x3.
+Board class for the game of Mills.
+Default board size is 3x8.
 Board data:
+#todo
   1=white(O), -1=black(X), 0=empty
   first dim is column , 2nd is row:
      pieces[0][0] is the top left square,
      pieces[2][0] is the bottom left square,
 Squares are stored and manipulated as (x,y) tuples.
 
-Author: Evgeny Tyurin, github.com/evg-tyurin
-Date: Jan 5, 2018.
+Author: Simon Schnecko, github.com/Schnetzkor
+Date: Feb 18, 2021.
 
 Based on the board for the game of Othello by Eric P. Nichols.
 
@@ -17,26 +19,28 @@ Based on the board for the game of Othello by Eric P. Nichols.
 # from bkcharts.attributes import color
 class Board():
 
-    # list of all 8 directions on the board, as (x,y) offsets
-    __directions = [(1,1),(1,0),(1,-1),(0,-1),(-1,-1),(-1,0),(-1,1),(0,1)]
+    # list of all 4 directions on the board, as (x,y) offsets
+    __directions = [(1,0),(0,-1),(-1,0),(0,1)]
 
     def __init__(self, n=3):
         "Set up initial board configuration."
 
         self.n = n
         # Create the empty board array.
-        self.pieces = [None]*self.n
-        for i in range(self.n):
-            self.pieces[i] = [0]*self.n
+        self.pieces = np.zeros((n, 8), np.int8)
+
 
     # add [][] indexer syntax to the Board
-    def __getitem__(self, index): 
-        return self.pieces[index]
+    def __getitem__(self, indexI, indexJ):
+        return self.pieces[indexI][indexJ]
 
-    def get_legal_moves(self, color):
+    def get_legal_moves(self, color, gamestage, movestage):
+
         """Returns all the legal moves for the given color.
         (1 for white, -1 for black)
-        @param color not used and came from previous version.        
+        @param color not used and came from previous version.
+        @param gamestage 0 = PlacingStage, 1 = Gamephase 2 = Endgamephase
+        @param movestage 0 = choosing/placing square, 1 moving square,3 kicking square
         """
         moves = set()  # stores the legal moves.
 

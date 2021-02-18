@@ -17,12 +17,15 @@ Implementierung des Spielfeldes:
 
 Übergebe den Vektor als:
 {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,Y}
+
 Bessere Idee:
 8x3 oder 3x8 Matrix:
 
-[[8][8][8]]
 
 =>
+
+Darstellung als eine art Reuse. Wobei ecken durch ungerade und Kannten durch gerade Indizes dargestellt
+werden.
 
 <- 0,0 - 0,1 - 0,2 - 0,3 - 0,4 - 0,5 - 0,6 - 0,7 ->
     |           |           |           |
@@ -30,7 +33,12 @@ Bessere Idee:
     |           |           |           |
 <- 2,0 - 2,1 - 2,2 - 2,3 - 2,4 - 2,5 - 2,6 - 2,7 ->
 
+Daraus ergibt sich folgendes regelwerk:
+Bewegung zwischen den ebenen sind möglich wenn der zweite Index gerade ist.
+eine Mühle enthält drei aufeinander folgende Felder von denen entweder einer der letzten indizes oder alle drei der
+letzten indizes gerade sind.
 =>
+Klassische Darstellung
 
 2,7 ------------- 2,0 ------------- 2,1
  |                 |                 |

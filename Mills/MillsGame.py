@@ -25,7 +25,7 @@ class TicTacToeGame(Game):
 
     def getBoardSize(self):
         # (a,b) tuple
-        return (self.n, self.n)
+        return self.n, 8
 
     def getActionSize(self):
         # return number of actions
