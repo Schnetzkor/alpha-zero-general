@@ -4,7 +4,7 @@
       todo:  Aufgabe 1: Modell verstehen
                  1. Informationen eingesehen
                  2. Modell verstanden
-      todo:  Aufgabe 2: Repo nutzbar machen
+      done:  Aufgabe 2: Repo nutzbar machen
                 1. Repository heruntergeladen
                 2. Readme gelesen & verstanden
                 3. Repository zum arbeiten gebracht

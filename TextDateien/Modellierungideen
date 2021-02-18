@@ -1,8 +1,8 @@
 1.Phasen: Es gibt 4 Phasen in einem Muehle-Spiel:
     I: Auslegen der Steine
-    II: Einen eigenen Stein eliminiere: Extra Zug fuer den Spieler mit anderen Regeln
+    II: Einen eigenen Stein eliminieren: Extra Zug fuer den Spieler mit anderen Regeln
     III: Einen Stein bewegen (muessen)
-    IV: Einen eigenen Stein flexibel bewegen können
+    IV: Einen eigenen Stein flexibel bewegen (muessen)
 
 Implementierung des Spielfeldes:
 ---------
@@ -25,3 +25,4 @@ B: ABC, BEH
 usw.
 
 Wenn Stein auf Position gezogen wird, iteriere ueber die Kombinationen (optimal: minus die, aus der der Stein kommt, dort kann keine Muehle sein)
+
