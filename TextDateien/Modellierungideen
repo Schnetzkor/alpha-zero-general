@@ -1,8 +1,8 @@
 1.Phasen: Es gibt 4 Phasen in einem Muehle-Spiel:
     I: Auslegen der Steine
-    II: Einen eigenen Stein eliminieren
+    II: Einen eigenen Stein eliminiere: Extra Zug fuer den Spieler mit anderen Regeln
     III: Einen Stein bewegen (muessen)
-    IV: Einen eigenen Stein eliminieren
+    IV: Einen eigenen Stein flexibel bewegen können
 
 Implementierung des Spielfeldes:
 ---------
