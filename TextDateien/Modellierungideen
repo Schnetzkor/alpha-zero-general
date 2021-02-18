@@ -18,11 +18,25 @@ Implementierung des Spielfeldes:
 Übergebe den Vektor als:
 {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,Y}
 
+Legale Zuege Phase 1:
+Iteriere ueber den Vektor, unbelegte Stellen = legal
+
+Legale Zuege Phase 2, Eliminiation:
+Iteriere ueber den Vektor, vom Gegner belegte Stellen die nicht in einer Muehle sind = legaler Zug
+
+Legale Zuege Phase 3: Iteriere ueber Vektor, bei eigenen Steinen, wenn eine Nachbarposition frei ist = legaler Zug
+Speichere die Nachbarn ab:
+A: B,j
+B: A,C, E
+usw.
+
+Legale Zuege Phase 4: Alle freien Felder sind legale Zuege, Differenzierung der Herkunft? Schachschreibweise ist d4xe5 bzw.
+
 Checken ob eine Muehle vorhanden ist:
 Speichere mögliche Kombinationen für jede Position ab:
 A: ABC, AJV
 B: ABC, BEH
 usw.
-
 Wenn Stein auf Position gezogen wird, iteriere ueber die Kombinationen (optimal: minus die, aus der der Stein kommt, dort kann keine Muehle sein)
+
 
