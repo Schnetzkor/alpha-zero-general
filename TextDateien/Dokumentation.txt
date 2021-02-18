@@ -13,3 +13,5 @@ andere Formalia neben der Aufgabenstellung: Dokumentation & Präsentationserstel
 2021_02_15_21:30: Erster Überblick & gemeinsame Einarbeitung in das Repo, Planung des gemeinsamen Vorgehens, Diskussionen über mögliche Strategie-Implementationen; 90 Mins; Philipp & Simon
 
 2021_02_17_09:30: Erste Modellierungsidee notiert und visualisiert; 45 Mins, Philipp
+
+2021_02_18_11:50:
