@@ -13,8 +13,8 @@ use this script to play any two agents against each other, or play manually with
 any agent.
 """
 
-human_vs_cpu = False
-
+human_vs_cpu = True
+human_vs_human = False
 g = TicTacToeGame()
 
 # all players
@@ -22,15 +22,16 @@ rp = RandomPlayer(g).play
 hp = HumanTicTacToePlayer(g).play
 
 
-
+if not human_vs_human:
 # nnet players
-n1 = NNet(g)
+    n1 = NNet(g)
 
-n1.load_checkpoint('./temp2/', 'best.pth.tar')#('./pretrained_models/tictactoe/keras/','best-25eps-25sim-10epch.pth.tar')
-args1 = dotdict({'numMCTSSims': 50, 'cpuct':1.0})
-mcts1 = MCTS(g, n1, args1)
-n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
-
+    n1.load_checkpoint('./temp2/', 'best.pth.tar')#('./pretrained_models/tictactoe/keras/','best-25eps-25sim-10epch.pth.tar')
+    args1 = dotdict({'numMCTSSims': 50, 'cpuct':1.0})
+    mcts1 = MCTS(g, n1, args1)
+    n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
+else:
+    n1p = hp
 if human_vs_cpu:
     player2 = hp
 else:

@@ -100,12 +100,12 @@ class Board():
             for j in range(self.n):
                 for i in range(self.m):
                     newmove = j, i
-                    if self.pieces[newmove] == -color and not self.is_in_Mill(newmove):
+                    if self.pieces[newmove] == -color and not self.is_in_mill(newmove):
                         moves.add(newmove)
 
         return list(moves)
 
-    def is_in_Mill(self, piece):
+    def is_in_mill(self, piece):
         j, i = piece
         color = self.pieces[piece]
         if i % 2 == 0:
@@ -142,6 +142,9 @@ class Board():
     def end_gamestage_zero(self):
         if self.counter == self.n**2:
             self.gamestage = 1
+            self.counter = 0
+        else:
+            self.counter = self.counter + 1
 
     def execute_move(self, move, color):
         """Perform the given move on the board; 
@@ -149,7 +152,26 @@ class Board():
         """
         (x, y) = move
         if self.gamestage == 0:
-            self.pieces[x, y] = color
+            if self.movestage == 0:
+                self.pieces[x, y] = color
+                self.end_gamestage_zero()
+                if self.is_in_mill(move):
+                    self.movestage = 2
+
+        if self.movestage == 2:
+            self.pieces[x, y] == 0
+
+
+        if self.gamestage >= 1 and self.movestage == 0:
+            self.last_move = move
+            self.movestage = 1
+
+        if self.gamestage == 1 and self.movestage == 1:
+            self.pieces[self.last_move] = 0
+            self.pieces[move] = color
+            if self.is_in_mill(move):
+                self.movestage = 2
+
 
 
 
