@@ -72,6 +72,5 @@ Speichere mögliche Kombinationen für jede Position ab:
 A: ABC, AJV
 B: ABC, BEH
 usw.
+
 Wenn Stein auf Position gezogen wird, iteriere ueber die Kombinationen (optimal: minus die, aus der der Stein kommt, dort kann keine Muehle sein)
-
-
