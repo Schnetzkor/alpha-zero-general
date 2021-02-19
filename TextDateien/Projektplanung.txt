@@ -9,7 +9,7 @@
                 2. Readme gelesen & verstanden
                 3. Repository zum arbeiten gebracht
                 4. Quellcode verstanden und kompetent nutzbar gemacht
-      todo:  Aufgabe 3: Tic-Tac-Toe
+      done:  Aufgabe 3: Tic-Tac-Toe
                 1. Repository für Tic-Tac-Toe konfiguriert
                 2. Modell für Tic-Tac-Toe trainiert
 
