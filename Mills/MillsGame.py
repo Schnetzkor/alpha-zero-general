@@ -14,7 +14,10 @@ Date: Jan 5, 2018.
 
 Based on the OthelloGame by Surag Nair.
 """
-class TicTacToeGame(Game):
+
+
+class MillsGame(Game):
+
     def __init__(self, n=3):
         self.n = n
 
@@ -25,11 +28,11 @@ class TicTacToeGame(Game):
 
     def getBoardSize(self):
         # (a,b) tuple
-        return self.n, 8
+        return self.n, self.n*3-1
 
     def getActionSize(self):
         # return number of actions
-        return self.n*self.n + 1
+        return self.n*(self.n*3-1) + 1
 
     def getNextState(self, board, player, action):
         # if player takes action on board, return next (board,player)
