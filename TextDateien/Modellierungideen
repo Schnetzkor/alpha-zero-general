@@ -74,3 +74,63 @@ B: ABC, BEH
 usw.
 
 Wenn Stein auf Position gezogen wird, iteriere ueber die Kombinationen (optimal: minus die, aus der der Stein kommt, dort kann keine Muehle sein)
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+GUI:
+1. Anforderungen: Was soll die GUI koennen?
+    I.Das Brett darstellen, also leere Felder und die Verbindungen.
+        Leere Felder = Grau, Verbindungen= Schwarz, Hintergrund = Weiss?, Simon fragen
+        Wir brauchen Felder, die mit 4 unterschiedlichen Farben gefuellt sein koennen: Leer, Moeglicher Zug, Spielstein
+        Dazu Verbindungen zwischen den Feldern, die Schwarz sein sollen.
+        Verbindungen erstellen: uebernehmen aus den schleifen fuer legale Zuege.
+    II. Steine eindeutig darstellen
+         Spieler1=Blau, Spieler2=Rot
+    III. Optional: Legale Zuege darstellen
+        Idee: Legale Zuege sind Steine mit Farbe= Gruen
+    IV. Updatezeitpunkte: Zug ist committed, Spielerwechsel erfolgt und möglichte Züge vorhanden
+        Menschlicher Spieler: Lese den Mausklick auf den gruenen Stein (=möglicher Zug) aus und comitted den Zug.
+2. Codefragmente als Start aus spider 4gewinnt:
+    Aufrufe am Ende des Codes:
+        SQUARESIZE = 100
+
+        width = COLUMN_COUNT * SQUARESIZE  / Wir brauchen Platz fuer die Felder und Verbindungen, zur Erstellung der GUI: Balkengröße: 4,8. 16? Wenn Stein =2,1? Wie Reuse umrechnen in Koordinaten fuer GUI? Oder einfach ignorieren und spiegeln, weil das Brett sowieso symmetirsch ist?
+        height = ROW_COUNT * SQUARESIZE     / Dann wäre Column_count = 2*Steinanzahl+16*2 = Row_count, Squaresize = "Zoom"
+
+        size = (width, height)
+
+        RADIUS = int(SQUARESIZE / 2 - 5)  / Mir ist nicht klar wozu das hier ist?
+
+        screen = pygame.display.set_mode(size)
+        draw_board(board)
+        pygame.display.update()
+
+        myfont = pygame.font.SysFont("monospace", 75) / Standard hier
+
+        col = -1
+        row = -1
+        valid_locations = initial_valid_locations(board) / hier valid_moves
+
+    draw_board:
+        def draw_board(board_):
+             for c in range(COLUMN_COUNT):
+                  for r in range(ROW_COUNT):
+                      pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r *                   / Hier basisfeld:  .draw.rect () fuer Verbindungen der Balken, circle fuer Steine, erst ein rectangle als Hintergrund = weiss, Verbindungen = Schwarz,
+                                            SQUARESIZE, SQUARESIZE, SQUARESIZE))            / resizing ist hier einfach nur mit squaresize, das sollte auch möglich sein sobald wir uns auf Balkengröße usw. geeinigt haben.
+                      pygame.draw.circle(screen, BLACK, (int(c * SQUARESIZE + SQUARESIZE / 2),
+                                               int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+
+             for c in range(COLUMN_COUNT):                                                          / Hier die Spieler, kann uebernommen werden, Farbe auswählbar.
+                for r in range(ROW_COUNT):
+                    if board_[r][c] == 1:
+                    pygame.draw.circle(screen, RED, (int(c * SQUARESIZE + SQUARESIZE / 2),
+                                                 height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+            elif board_[r][c] == 2:
+                pygame.draw.circle(screen, YELLOW, (int(
+                    c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+    pygame.display.update()

@@ -14,4 +14,6 @@ andere Formalia neben der Aufgabenstellung: Dokumentation & Präsentationserstel
 
 2021_02_17_09:30: Erste Modellierungsidee notiert und visualisiert; 45 Mins, Philipp
 
-2021_02_18_11:50:
+2021_02_18_11:50: Modellierung zuende besprochen, Nachvollzug des Quellcodes, Einlesen in pygame fuer GUI(Philipp); 180 Min; Philipp
+
+2021_02_21_16:00: Pygame Dokumentation lesen, ueberlegungen zur Visualisierung des GUIs,
