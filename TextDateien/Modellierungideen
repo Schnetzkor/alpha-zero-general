@@ -85,7 +85,7 @@ GUI:
         Dazu Verbindungen zwischen den Feldern, die Schwarz sein sollen.
         Verbindungen erstellen: uebernehmen aus den schleifen fuer legale Zuege.
     II. Steine eindeutig darstellen
-         Spieler1=Blau, Spieler2=Rot
+         Spieler1=Blau, Spieler2=Gelb
     III. Optional: Legale Zuege darstellen
         Idee: Legale Zuege sind Steine mit Farbe= Gruen
     IV. Updatezeitpunkte: Zug ist committed, Spielerwechsel erfolgt und möglichte Züge vorhanden
@@ -97,12 +97,24 @@ GUI:
         Balken_lang =3*Durchmesser_Kreis
         Balken_mittel = 2*Durchmesser_Kreis
         Balken_klein = 1*Durchmesser_Kreis
+            Farbe:
+                Hintergrund = Weiß
+                Balken = Schwarz
+                Leeres Feld = Grau
+                Spieler1 = Blau
+                Spieler2= Gelb
+                Legale Zuege aktiver Spieler = Gruen
 
-
-        Links oben Kreis zeichnen, dann einen Balken der zentriert ist auf Höhe des Mittelpunktes des Kreises, mit Länge = 3*Durchmesser_Kreis
-        Mittleren oberen Kreis zeichnen, dann Balken s.o.
-        Rechten oberen Kreis zeichnen
-        Balken
+        Links oben Kreis zeichnen, dann einen Balken der zentriert ist auf Höhe des Mittelpunktes des Kreises rechts & unten
+        Mittleren oberen Kreis zeichnen, dann Balken rechts & unten
+        Rechten oberen Kreis zeichnen, dann Balken nach unten
+        Kreis rechte Mitte, Balken nach links & unten
+        Kreis rechts unten, Balken nach links
+        Kreis untere Mitte, Balken nach oben und links
+        Kreis unten links, Balken nach oben
+        Kreis linke Mitte, Balken nach rechts
+        Kreis links mittlere Ebene, Balken nach unten, oben, rechts,
+        weiter rotieren in Spinnennetzmuster, wie in Ebene 1
 
 2. Codefragmente als Start aus spider 4gewinnt:
     Aufrufe am Ende des Codes:
