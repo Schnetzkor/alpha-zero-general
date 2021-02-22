@@ -76,11 +76,6 @@ usw.
 Wenn Stein auf Position gezogen wird, iteriere ueber die Kombinationen (optimal: minus die, aus der der Stein kommt, dort kann keine Muehle sein)
 
 
-
-
-
-
-
 -------------------------------------------------------------------------------
 GUI:
 1. Anforderungen: Was soll die GUI koennen?
@@ -95,6 +90,20 @@ GUI:
         Idee: Legale Zuege sind Steine mit Farbe= Gruen
     IV. Updatezeitpunkte: Zug ist committed, Spielerwechsel erfolgt und möglichte Züge vorhanden
         Menschlicher Spieler: Lese den Mausklick auf den gruenen Stein (=möglicher Zug) aus und comitted den Zug.
+
+        Punktdefinitionen zum Zeichnen:
+        Kreis = Groeße zu definieren
+        Balken =  Zentriert auf Mittelpunkt d. entsprechenden Kreise
+        Balken_lang =3*Durchmesser_Kreis
+        Balken_mittel = 2*Durchmesser_Kreis
+        Balken_klein = 1*Durchmesser_Kreis
+
+
+        Links oben Kreis zeichnen, dann einen Balken der zentriert ist auf Höhe des Mittelpunktes des Kreises, mit Länge = 3*Durchmesser_Kreis
+        Mittleren oberen Kreis zeichnen, dann Balken s.o.
+        Rechten oberen Kreis zeichnen
+        Balken
+
 2. Codefragmente als Start aus spider 4gewinnt:
     Aufrufe am Ende des Codes:
         SQUARESIZE = 100
@@ -133,4 +142,9 @@ GUI:
             elif board_[r][c] == 2:
                 pygame.draw.circle(screen, YELLOW, (int(
                     c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
-    pygame.display.update()
+    pygame.display.update
+
+    Umgesetzter Code:
+
+    draw_board:
+        def draw_board
