@@ -92,12 +92,13 @@ GUI:
         Menschlicher Spieler: Lese den Mausklick auf den gruenen Stein (=möglicher Zug) aus und comitted den Zug.
 
         Punktdefinitionen zum Zeichnen:
-        Kreis = Groeße zu definieren
-        Balken =  Zentriert auf Mittelpunkt d. entsprechenden Kreise
+        Gesamtgroeße_Feld = 7*Kreis
+        Kreis = Groeße zu definieren                                  /  pygame.draw.circle() : draw a circle
+        Balken =  Zentriert auf Mittelpunkt d. entsprechenden Kreise  /  pygame.draw.line() : draw a straight line
         Balken_lang =3*Durchmesser_Kreis
         Balken_mittel = 2*Durchmesser_Kreis
         Balken_klein = 1*Durchmesser_Kreis
-            Farbe:
+        Farbe:
                 Hintergrund = Weiß
                 Balken = Schwarz
                 Leeres Feld = Grau
@@ -120,8 +121,8 @@ GUI:
     Aufrufe am Ende des Codes:
         SQUARESIZE = 100
 
-        width = COLUMN_COUNT * SQUARESIZE  / Wir brauchen Platz fuer die Felder und Verbindungen, zur Erstellung der GUI: Balkengröße: 4,8. 16? Wenn Stein =2,1? Wie Reuse umrechnen in Koordinaten fuer GUI? Oder einfach ignorieren und spiegeln, weil das Brett sowieso symmetirsch ist?
-        height = ROW_COUNT * SQUARESIZE     / Dann wäre Column_count = 2*Steinanzahl+16*2 = Row_count, Squaresize = "Zoom"
+        width = COLUMN_COUNT * SQUARESIZE  / Wir brauchen Platz fuer die Felder und Verbindungen, zur Erstellung der GUI:Wie Reuse umrechnen in Koordinaten fuer GUI? Oder einfach ignorieren und spiegeln, weil das Brett sowieso symmetirsch ist?
+        height = ROW_COUNT * SQUARESIZE     / Dann wäre Column_count = 7*Durchmesser = Row_count, Squaresize = "Zoom"
 
         size = (width, height)
 
@@ -141,7 +142,7 @@ GUI:
         def draw_board(board_):
              for c in range(COLUMN_COUNT):
                   for r in range(ROW_COUNT):
-                      pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r *                   / Hier basisfeld:  .draw.rect () fuer Verbindungen der Balken, circle fuer Steine, erst ein rectangle als Hintergrund = weiss, Verbindungen = Schwarz,
+                      pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r *                   / Hier basisfeld:  .draw.line () fuer Verbindungen der Balken, circle fuer Steine, erst ein rectangle als Hintergrund = weiss, Verbindungen = Schwarz,
                                             SQUARESIZE, SQUARESIZE, SQUARESIZE))            / resizing ist hier einfach nur mit squaresize, das sollte auch möglich sein sobald wir uns auf Balkengröße usw. geeinigt haben.
                       pygame.draw.circle(screen, BLACK, (int(c * SQUARESIZE + SQUARESIZE / 2),
                                                int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
@@ -156,7 +157,26 @@ GUI:
                     c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
     pygame.display.update
 
-    Umgesetzter Code:
+Eingesetzter Code:pygame.draw.circle()
+
+surface (Surface) -- surface to draw on
+color (Color or int or tuple(int, int, int, [int])) -- color to draw with, the alpha value is optional if using a tuple (RGB[A])
+center (tuple(int or float, int or float) or list(int or float, int or float) or Vector2(int or float, int or float)) -- center point of the circle as a sequence of 2 ints/floats, e.g. (x, y)
+radius (int or float) -- radius of the circle, measured from the center parameter, nothing will be drawn if the radius is less than 1
+width (int) --
+
+
+pygame.draw.line() / 16 Linien, zwischen den Extrema
+
+surface (Surface) -- surface to draw on
+color (Color or int or tuple(int, int, int, [int])) -- color to draw with, the alpha value is optional if using a tuple (RGB[A])
+start_pos (tuple(int or float, int or float) or list(int or float, int or float) or Vector2(int or float, int or float)) -- start position of the line, (x, y)
+end_pos (tuple(int or float, int or float) or list(int or float, int or float) or Vector2(int or float, int or float)) -- end position of the line, (x, y)
+width (int) --
+
+(optional) used for line thickness
+if width >= 1, used for line thickness (default is 1)
+if width < 1, nothing will be drawn
 
     draw_board:
         def draw_board
