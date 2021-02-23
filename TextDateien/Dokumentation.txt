@@ -17,3 +17,11 @@ andere Formalia neben der Aufgabenstellung: Dokumentation & Präsentationserstel
 2021_02_18_11:50: Modellierung zuende besprochen, Nachvollzug des Quellcodes, Einlesen in pygame fuer GUI(Philipp); 180 Min; Philipp
 
 2021_02_21_16:00: Pygame Dokumentation lesen, ueberlegungen zur Visualisierung des GUIs, 120 Mins; Philipp
+
+2021_02_23_13:00: Kurze Absprache mit Simon bzgl. Implementierung GUI und Umwandlungsmoeglichkeiten, Loesung als switch, Problem: Python kann nur if-Abfragen, sieht nicht so schoen aus aber funktional.
+Zwei komplimentaere Funktionen zur Konversion von Index auf GUI und zurueck erstellt, die einfach aufgerufen werden koennen.
+Gestaltung der GUI nach einem Koordinatensystem das skaliert werden kann. Alle Angaben in der GUI werden im Basissystem 0-14 fuer x,y erstellt und danach skaliert. Skalierung ist dabei die kleinste Einheit, die Liniengroeße.
+Updateboard als Funktion iteriert ueber das gesamte Brett, um alle Veraenderungen darstellen zu koennen.
+Problem: Registrierung von Klicks nur auf den Kreisen, nicht in Quadraten. Entscheidung, dass ueber die Abstaende in der GUI genug Differenzierung moeglich ist, plus Abfrage ob Zug erlaubt ist.
+
+

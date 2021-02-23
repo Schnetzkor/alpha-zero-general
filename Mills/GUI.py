@@ -1,35 +1,37 @@
 import pygame
-from pygame
+import math
+import numpy as np
+import sys
 
-2,7 ------------- 2,0 ------------- 2,1
- |                 |                 |
- |    1,7 ------- 1,0 ------- 1,1    |
- |     |           |           |     |
- |     |    0,7 - 0,0 - 0,1    |     |
- |     |     |           |     |     |
-2,6 - 1,6 - 0,6         0,2 - 1,2 - 2,2
- |     |     |           |     |     |
- |     |    0,5 - 0,4 - 0,3    |     |
- |     |           |           |     |
- |    1,5 ------- 1,4 ------- 1,3    |
- |                 |                 |
-2,5 ------------- 2,4 ------------- 2,5
+#2,7 ------------- 2,0 ------------- 2,1
+# |                 |                 |
+# |    1,7 ------- 1,0 ------- 1,1    |
+# |     |           |           |     |
+# |     |    0,7 - 0,0 - 0,1    |     |
+# |     |     |           |     |     |
+#2,6 - 1,6 - 0,6         0,2 - 1,2 - 2,2
+# |     |     |           |     |     |
+# |     |    0,5 - 0,4 - 0,3    |     |
+# |     |           |           |     |
+# |    1,5 ------- 1,4 ------- 1,3    |
+# |                 |                 |
+#2,5 ------------- 2,4 ------------- 2,5
+#
+#1,1 ------------- 1,7 ------------- 1,13
+# |                 |                 |
+# |    3,3 ------- 3,7 ------- 3,11   |
+# |     |           |           |     |
+# |     |    5,5 - 5,7 - 5,9    |     |
+# |     |     |           |     |     |
+#7,1 - 7,3 - 7,5         7,9 - 7,11 - 7,13
+# |     |     |           |     |     |
+# |     |    9,5 - 9,7 - 9,9    |     |
+# |     |           |           |     |
+# |    11,3------- 11,7-------11,11   |
+# |                 |                 |
+#13,1 -------------13,7-------------13,13
 
-1,1 ------------- 1,7 ------------- 1,13
- |                 |                 |
- |    3,3 ------- 3,7 ------- 3,11   |
- |     |           |           |     |
- |     |    5,5 - 5,7 - 5,9    |     |
- |     |     |           |     |     |
-7,1 - 7,3 - 7,5         7,9 - 7,11 - 7,13
- |     |     |           |     |     |
- |     |    9,5 - 9,7 - 9,9    |     |
- |     |           |           |     |
- |    11,3------- 11,7-------11,11   |
- |                 |                 |
-13,1 -------------13,7-------------13,13
-
-##------------ Umwandlungstabellen zwischen Index & Koordinate
+##------------ Umwandlungstabellen zwischen Index & Koordinate------------
 def get_index (coordinate):
         if coordinate == [5,7]: return [0,0]
         if coordinate == [5,9]: return [0,1]
@@ -91,7 +93,7 @@ YELLOW = (255, 255, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 GRAY = (127, 127, 127)
-scale = 100
+scale: int = 100
 
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
@@ -114,16 +116,6 @@ def drawBackground:
             pygame.draw.circle (screen, GRAY, (get_ui_position(i,j), scale*0,25,))
     pygame.display.update()
 
-##Darstellung moegliche Zuege fuer Mensch
-
-' if humanplayer=true: showValidMoves
-
-'def showValidMoves ()
- '   moves = get_legal_moves
- '   for i in range(moves)
-  '      pygame.draw.circle (screen, GREEN, (getCoordinate (i), scale*0,25))
-
-
 ## Soll nach jedem Zug aufgerufen werden, sofern nicht jedes Mal das Board komplett neu gezeichnet werden muss? Wenn nein, werden hier nur die Veraenderungen angezeigt
 def updateboard (Board):
     for i in range(2):
@@ -135,9 +127,26 @@ def updateboard (Board):
             else:
                 pygame.draw.circle (screen, GRAY, (getCoordinate (i), scale*0,25))
 
-## --------------Eventsteuerung --------------
+## --------------Eventsteuerung, entnommen und angepasst aus Uebung 3 --------------
 
 while not game_over:
+    if event.type == pygame.QUIT:
+          sys.exit()
+
+   # if player_turn == TRUE:
+        for event in pygme.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                posy = event.pos[0]
+                posx = event.pos[1]
+                position = [int(math.floor(posy / scale)), int(math.floor(posx / scale)) ]
+                 #column = int(math.floor(posy / scale))
+                 #row = int(math.floor(posx / scale))
+                valid = self.game.getValidMoves(board, 1)
+
+                for i in range(valid):
+                    if position == valid (i):
+                        execute move (position)
+                        updateboard (board)
 
 
 
@@ -147,12 +156,10 @@ while not game_over:
 
 
 
+width: int = 14 *scale
+height: int =14 * scale
 
-
-width = 14 *scale
-height =14 * scale
-
-size = width*height
+size: int = width*height
 screen = pygame.display.set_mode(size)
 drawBackground()
 myfont = pygame.font.SysFont("monospace", 75)
