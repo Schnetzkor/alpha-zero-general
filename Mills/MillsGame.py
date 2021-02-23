@@ -75,7 +75,7 @@ class MillsGame(Game):
         cf = np.copy(board)
         for k in range(self.n):
             for j in range(self.m):
-                cf[k][j]== cf[k][j]*player
+                cf[k][j] = cf[k][j]*player
         cf[self.n][6] = cf[self.n][6]*player
         return cf
 
