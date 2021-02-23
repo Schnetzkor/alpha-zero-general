@@ -101,4 +101,39 @@ class MillsGame(Game):
 
     @staticmethod
     def display(board):
-        print(board)
+        #print(board)
+        print(" %1d ------------- %1d ------------- %1d"% (board[2][7],board[2][0],board[2][1] ))
+        print(" |              |                |")
+        print(" |    %1d ------- %1d ------- %1d      |"% (board[1][7],board[1][0],board[1][1] ))
+        print(" |     |        |         |      |")
+        print(" |     |    %1d - %1d - %1d     |      |"% (board[0][7],board[0][0],board[0][1] ))
+        print(" |     |    |       |     |      |")
+        print(" %1d  -  %1d -  %1d        %1d  - %1d   -  %1d"% (board[2][6],board[1][6],board[0][6],board[0][2],board[1][2],board[2][2] ))
+        print(" |     |    |       |     |      |")
+        print(" |     |    %1d - %1d - %1d     |      |"% (board[0][5],board[0][4],board[0][3] ))
+        print(" |     |        |         |      |")
+        print(" |    %1d ------- %1d ------- %1d      |"% (board[1][5],board[1][4],board[1][3] ))
+        print(" |              |                |")
+        print(" %1d ------------- %1d ------------- %1d"% (board[2][5],board[2][4],board[2][3] ))
+
+        print(" %2s ------------- %2s ------------- %2s" % ("27", "20", "21"))
+        print(" |                 |                |")
+        print(" |    %2s ------- %2s ------- %2s      |" % ("17", "10", "11"))
+        print(" |     |           |         |      |")
+        print(" |     |    %2s - %2s - %2s     |      |" % ("07", "00", "01"))
+        print(" |     |    |          |     |      |")
+        print(" %1s  -  %1s -  %1s        %1s  - %1s   -  %1s" % ("26", "16", "06", "02", "12", "22"))
+        print(" |     |    |          |     |      |")
+        print(" |     |    %2s - %2s - %2s     |      |" % ("05", "04", "03"))
+        print(" |     |           |         |      |")
+        print(" |    %2s ------- %2s ------- %2s      |" % ("15", "14", "13"))
+        print(" |                 |                |")
+        print(" %2s ------------- %2s ------------- %2s" % ("25", "24", "23"))
+
+        print(board[3])
+        if(board[3][1]== 0):
+            print("wähle aus:")
+        if (board[3][1] == 1):
+            print("bewege:")
+        if (board[3][1] == 2):
+            print("töte:")
