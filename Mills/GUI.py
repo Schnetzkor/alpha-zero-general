@@ -86,13 +86,12 @@ def get_ui_position (position):
 
 ##------------Farbdefinition-----------------------------
 
-
-WHITE = (255 ,255 ,255)
 BLACK = (0, 0, 0)
-YELLOW = (255, 255, 0)
-BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
 GRAY = (127, 127, 127)
+YELLOW = (255, 255, 0)
+WHITE = (255 ,255 ,255)
 scale: int = 100
 
 ##-------------- Darstellungserstellung ----------------
@@ -100,7 +99,7 @@ scale: int = 100
 
 def drawBackground:
     pygame.draw.rect (screen, WHITE, 0, 14 * scale)
-    ##4 Quadrate
+##4 Quadrate
     pygame.draw.lines (screen, BLACK, closed=True  ,points=((scale * [1,1]), (scale * [1,13]), (scale * [13,13]), (scale*[13,1])), width = scale)
     pygame.draw.lines (screen, BLACK, closed=True, points=((scale * [3,3]), (scale * [3,11]), (scale * [11,11]), (scale*[11,3])), width = scale)
     pygame.draw.lines (screen, BLACK, closed=True, points=((scale * [5,5] ),(scale * [5,9]), (scale * [9,9]), (scale*[9,5])), width = scale)
@@ -110,31 +109,34 @@ def drawBackground:
     pygame.draw.line (screen, BLACK, start_pos=(scale * [7,13]), end_pos =(scale * [7,9]) , width=scale)
     pygame.draw.line (screen, BLACK, start_pos=(scale * [13,7]), end_pos=(scale * [9,7]) , width=scale)
 ##Leerstellen
-
     for i in range(2):
         for j in range(7):
             pygame.draw.circle (screen, GRAY, (get_ui_position(i,j), scale*0,25,))
     pygame.display.update()
-
 ## Soll nach jedem Zug aufgerufen werden, sofern nicht jedes Mal das Board komplett neu gezeichnet werden muss? Wenn nein, werden hier nur die Veraenderungen angezeigt
 def updateboard (Board):
     for i in range(2):
         for j in range (7):
             if Board [i,j] == 1:
-                pygame.draw.circle (screen, YELLOW, (getCoordinate (i), scale*0,25))
+                pygame.draw.circle (screen, YELLOW, (get_ui_position (i), scale*0,25))
             if Board [i,j] == -1:
-                pygame.draw.circle (screen, BLUE, (getCoordinate (i), scale*0,25))
+                pygame.draw.circle (screen, BLUE, (get_ui_position (i), scale*0,25))
             else:
-                pygame.draw.circle (screen, GRAY, (getCoordinate (i), scale*0,25))
-
+                pygame.draw.circle (screen, GRAY, (get_ui_position (i), scale*0,25))
+## ------------------------- Initialisierungsvariabeln -------------------------------
+width: int = 14 *scale
+height: int =14 * scale
+size: int = width*height
+screen = pygame.display.set_mode(size)
+drawBackground()
+myfont = pygame.font.SysFont("monospace", 75)
 ## --------------Eventsteuerung, entnommen und angepasst aus Uebung 3 --------------
-
 while not game_over:
     if event.type == pygame.QUIT:
           sys.exit()
 
    # if player_turn == TRUE:
-        for event in pygme.event.get():
+        for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 posy = event.pos[0]
                 posx = event.pos[1]
@@ -142,11 +144,13 @@ while not game_over:
                  #column = int(math.floor(posy / scale))
                  #row = int(math.floor(posx / scale))
                 valid = self.game.getValidMoves(board, 1)
-
                 for i in range(valid):
                     if position == valid (i):
-                        execute move (position)
+                        execute_move (position)
                         updateboard (board)
+                        pygame.display.update()
+    # else:
+        # einfach update aufrufen wenn der zug gemacht wird?
 
 
 
@@ -155,11 +159,3 @@ while not game_over:
 
 
 
-
-width: int = 14 *scale
-height: int =14 * scale
-
-size: int = width*height
-screen = pygame.display.set_mode(size)
-drawBackground()
-myfont = pygame.font.SysFont("monospace", 75)
