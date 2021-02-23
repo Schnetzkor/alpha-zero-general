@@ -102,9 +102,13 @@ scale: int = 100
 def drawbackground():
     pygame.draw.rect(screen, WHITE, (0,0, 14 * scale, 14 * scale))
     ##4 Quadrate
-    pygame.draw.lines(screen, BLACK, closed=True, points=[(1 * scale, 1 * scale)(1 * scale, 13 * scale)(13 * scale, 13 * scale)(13 * scale, 1 * scale)], width=scale)
-    pygame.draw.lines(screen, BLACK, closed=True, points=[(3 * scale, 3 * scale])(3 * scale, 11 * scale)(11 * scale, 11 * scale)(11 * scale, 3 * scale)], width=scale)
-    pygame.draw.lines(screen, BLACK, closed=True, points=[(5 * scale, 5 * scale)(5 * scale, 9 * scale)(9 * scale, 9)(9 * scale, 5 * scale)], width=scale)
+    Außen = list [(1 * scale, 1 * scale)(1 * scale, 13 * scale)(13 * scale, 13 * scale)(13 * scale, 1 * scale)]
+    Mitte = list [(3 * scale, 3 * scale)(3 * scale, 11 * scale)(11 * scale, 11 * scale)(11 * scale, 3 * scale)]
+    Innen = list [(5 * scale, 5 * scale)(5 * scale, 9 * scale)(9 * scale, 9)(9 * scale, 5 * scale)]
+
+    pygame.draw.lines(screen, BLACK, closed=True, points=Außen, width=scale)
+    pygame.draw.lines(screen, BLACK, closed=True, points=Mitte, width=scale)
+    pygame.draw.lines(screen, BLACK, closed=True, points=Innen, width=scale)
 
     ## Verbindungen
     pygame.draw.line(screen, BLACK, start_pos=[(7 * scale, 1 * scale)], end_pos=[(7 * scale, 5 * scale)], width=scale)
