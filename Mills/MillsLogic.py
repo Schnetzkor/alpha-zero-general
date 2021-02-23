@@ -219,7 +219,7 @@ class Board():
         gamestage = self.get_gamestage()
         movestage = self.get_movestage()
         (x, y) = move
-        if gamestage == 0:
+        if gamestage == 0 and movestage==0:
             if movestage == 0:
                 self.pieces[x, y] = color
                 self.increment_place_counter()

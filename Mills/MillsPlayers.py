@@ -1,5 +1,4 @@
 import numpy as np
-
 """
 Random and Human-ineracting players for the game of TicTacToe.
 
@@ -28,17 +27,18 @@ class HumanTicTacToePlayer():
 
     def play(self, board):
         # display(board)
-        valid = self.game.getValidMoves(board, 1)
+        valid = self.game.getValidMoves(board, board[3][6])
         for i in range(len(valid)):
+
             if valid[i]:
-                print(int(i/self.game.n), int(i%self.game.n))
+                print(int(i / self.game.m), int(i%self.game.m), "; ", end="")
         while True: 
             # Python 3.x
             a = input()
             # Python 2.x 
             # a = raw_input()
 
-            x,y = [int(x) for x in a.split(' ')]
+            y, x = [int(x) for x in a.split(' ')]
             a = self.game.m * y + x if x!= -1 else self.game.n * (self.game.n * 3 - 1)
             if a <= self.game.m * self.game.n and valid[a]:
                 break
