@@ -33,58 +33,59 @@ import sys
 # 13,1 -------------13,7-------------13,13
 
 ##------------ Umwandlungstabellen zwischen Index & Koordinate------------
-def get_index(coordinate):
-    if coordinate == [5, 7]: return [0, 0]
-    if coordinate == [5, 9]: return [0, 1]
-    if coordinate == [7, 9]: return [0, 2]
-    if coordinate == [9, 9]: return [0, 3]
-    if coordinate == [9, 7]: return [0, 4]
-    if coordinate == [9, 5]: return [0, 5]
-    if coordinate == [7, 5]: return [0, 6]
-    if coordinate == [5, 5]: return [0, 7]
-    if coordinate == [3, 7]: return [1, 0]
-    if coordinate == [3, 11]: return [1, 1]
-    if coordinate == [7, 11]: return [1, 2]
-    if coordinate == [11, 11]: return [1, 3]
-    if coordinate == [11, 7]: return [1, 4]
-    if coordinate == [11, 3]: return [1, 5]
-    if coordinate == [7, 3]: return [1, 6]
-    if coordinate == [3, 3]: return [1, 7]
-    if coordinate == [1, 7]: return [2, 0]
-    if coordinate == [1, 13]: return [2, 1]
-    if coordinate == [7, 13]: return [2, 2]
-    if coordinate == [13, 13]: return [2, 3]
-    if coordinate == [13, 7]: return [2, 4]
-    if coordinate == [13, 1]: return [2, 5]
-    if coordinate == [7, 1]: return [2, 6]
-    if coordinate == [1, 1]: return [2, 7]
+def get_index(x, y):
+    if [x, y] == [5, 7]: return [0, 0]
+    if [x, y] == [5, 9]: return [0, 1]
+    if [x, y] == [7, 9]: return [0, 2]
+    if [x, y] == [9, 9]: return [0, 3]
+    if [x, y] == [9, 7]: return [0, 4]
+    if [x, y] == [9, 5]: return [0, 5]
+    if [x, y] == [7, 5]: return [0, 6]
+    if [x, y] == [5, 5]: return [0, 7]
+    if [x, y] == [3, 7]: return [1, 0]
+    if [x, y] == [3, 11]: return [1, 1]
+    if [x, y] == [7, 11]: return [1, 2]
+    if [x, y] == [11, 11]: return [1, 3]
+    if [x, y] == [11, 7]: return [1, 4]
+    if [x, y] == [11, 3]: return [1, 5]
+    if [x, y] == [7, 3]: return [1, 6]
+    if [x, y] == [3, 3]: return [1, 7]
+    if [x, y] == [1, 7]: return [2, 0]
+    if [x, y] == [1, 13]: return [2, 1]
+    if [x, y] == [7, 13]: return [2, 2]
+    if [x, y] == [13, 13]: return [2, 3]
+    if [x, y] == [13, 7]: return [2, 4]
+    if [x, y] == [13, 1]: return [2, 5]
+    if [x, y] == [7, 1]: return [2, 6]
+    if [x, y] == [1, 1]: return [2, 7]
 
 
-def get_ui_position(position):
-    if position == [0, 0]: return [5, 7]
-    if position == [0, 1]: return [5, 9]
-    if position == [0, 2]: return [7, 9]
-    if position == [0, 3]: return [9, 9]
-    if position == [0, 4]: return [9, 7]
-    if position == [0, 5]: return [9, 5]
-    if position == [0, 6]: return [7, 5]
-    if position == [0, 7]: return [5, 7]
-    if position == [1, 0]: return [3, 7]
-    if position == [1, 1]: return [3, 11]
-    if position == [1, 2]: return [7, 11]
-    if position == [1, 3]: return [11, 11]
-    if position == [1, 4]: return [11, 7]
-    if position == [1, 5]: return [11, 3]
-    if position == [1, 6]: return [7, 3]
-    if position == [1, 7]: return [3, 3]
-    if position == [2, 0]: return [1, 7]
-    if position == [2, 1]: return [1, 13]
-    if position == [2, 2]: return [7, 13]
-    if position == [2, 3]: return [13, 13]
-    if position == [2, 4]: return [13, 7]
-    if position == [2, 5]: return [13, 1]
-    if position == [2, 6]: return [7, 1]
-    if position == [2, 7]: return [1, 1]
+def get_ui_position(x, y):
+
+    if [x, y] == [0, 0]: return [5, 7]
+    if [x, y] == [0, 1]: return [5, 9]
+    if [x, y] == [0, 2]: return [7, 9]
+    if [x, y] == [0, 3]: return [9, 9]
+    if [x, y] == [0, 4]: return [9, 7]
+    if [x, y] == [0, 5]: return [9, 5]
+    if [x, y] == [0, 6]: return [7, 5]
+    if [x, y] == [0, 7]: return [5, 7]
+    if [x, y] == [1, 0]: return [3, 7]
+    if [x, y] == [1, 1]: return [3, 11]
+    if [x, y] == [1, 2]: return [7, 11]
+    if [x, y] == [1, 3]: return [11, 11]
+    if [x, y] == [1, 4]: return [11, 7]
+    if [x, y] == [1, 5]: return [11, 3]
+    if [x, y] == [1, 6]: return [7, 3]
+    if [x, y] == [1, 7]: return [3, 3]
+    if [x, y] == [2, 0]: return [1, 7]
+    if [x, y] == [2, 1]: return [1, 13]
+    if [x, y] == [2, 2]: return [7, 13]
+    if [x, y] == [2, 3]: return [13, 13]
+    if [x, y] == [2, 4]: return [13, 7]
+    if [x, y] == [2, 5]: return [13, 1]
+    if [x, y] == [2, 6]: return [7, 1]
+    if [x, y] == [2, 7]: return [1, 1]
 
 
 ##------------Farbdefinition-----------------------------
@@ -102,23 +103,23 @@ scale: int = 100
 def drawbackground():
     pygame.draw.rect(screen, WHITE, (0,0, 14 * scale, 14 * scale))
     ##4 Quadrate
-    Außen = list [(1 * scale, 1 * scale)(1 * scale, 13 * scale)(13 * scale, 13 * scale)(13 * scale, 1 * scale)]
-    Mitte = list [(3 * scale, 3 * scale)(3 * scale, 11 * scale)(11 * scale, 11 * scale)(11 * scale, 3 * scale)]
-    Innen = list [(5 * scale, 5 * scale)(5 * scale, 9 * scale)(9 * scale, 9)(9 * scale, 5 * scale)]
+    ##Außen = list (1 * scale, 1 * scale),(1 * scale, 13 * scale),(13 * scale, 13 * scale),(13 * scale, 1 * scale)
+    ##Mitte = list (3 * scale, 3 * scale),(3 * scale, 11 * scale),(11 * scale, 11 * scale),(11 * scale, 3 * scale)
+    ##Innen = list (5 * scale, 5 * scale),(5 * scale, 9 * scale),(9 * scale, 9),(9 * scale, 5 * scale)
 
-    pygame.draw.lines(screen, BLACK, closed=True, points=Außen, width=scale)
-    pygame.draw.lines(screen, BLACK, closed=True, points=Mitte, width=scale)
-    pygame.draw.lines(screen, BLACK, closed=True, points=Innen, width=scale)
+    pygame.draw.lines(surface = screen, Color = BLACK, closed = True, points = [(1 * scale, 1 * scale), (1 * scale, 13 * scale), (13 * scale, 13 * scale), (13 * scale, 1 * scale)], width = scale)
+    pygame.draw.lines(surface = screen, Color = BLACK, closed = True, points = [(3 * scale, 3 * scale), (3 * scale, 11 * scale), (11 * scale, 11 * scale), (11 * scale, 3 * scale)], width = scale)
+    pygame.draw.lines(surface = screen, Color = BLACK, closed = True, points = [(5 * scale, 5 * scale), (5 * scale, 9 * scale), (9 * scale, 9), (9 * scale, 5 * scale)], width = scale)
 
     ## Verbindungen
-    pygame.draw.line(screen, BLACK, start_pos=[(7 * scale, 1 * scale)], end_pos=[(7 * scale, 5 * scale)], width=scale)
-    pygame.draw.line(screen, BLACK, start_pos=[(1 * scale, 7 * scale)], end_pos=[(5 * scale, 7 * scale)], width=scale)
-    pygame.draw.line(screen, BLACK, start_pos=[(7 * scale, 13 * scale)], end_pos=[(7 * scale, 9 * scale)], width=scale)
-    pygame.draw.line(screen, BLACK, start_pos=[(13 * scale, 7 * scale)], end_pos=[(9 * scale, 7 * scale)], width=scale)
+    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (7 * scale, 1 * scale), end_pos = (7 * scale, 5 * scale), width = scale)
+    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (1 * scale, 7 * scale), end_pos = (5 * scale, 7 * scale), width = scale)
+    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (7 * scale, 13 * scale), end_pos = (7 * scale, 9 * scale), width = scale)
+    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (13 * scale, 7 * scale), end_pos = (9 * scale, 7 * scale), width = scale)
     ##Leerstellen
     for i in range(2):
         for j in range(7):
-            pygame.draw.circle(screen, GRAY, (get_ui_position(i, j), scale * 0, 25,))
+            pygame.draw.circle(surface = screen, color = GRAY, center = get_ui_position(i, j), radius = (scale * 0, 25))
     pygame.display.update()
 
 
@@ -129,16 +130,16 @@ def updateboard(board, player):
             valid = get_legal_moves(player)
             for k in range(valid):
                 if board[i, j] == valid:
-                    pygame.draw.circle(screen, GREEN, (get_ui_position(i, j)), scale * 0, 25)
+                    pygame.draw.circle(surface = screen, Color = GREEN, center = (get_ui_position(i, j)), radius =  scale * 0, 25)
                     break
             if board[i, j] == 1:
-                pygame.draw.circle(screen, YELLOW, (get_ui_position(i, j), scale * 0, 25))
+                pygame.draw.circle(surface = screen, Color = YELLOW, center = (get_ui_position(i, j)), radius = scale * 0, 25))
                 break
             if board[i, j] == -1:
-                pygame.draw.circle(screen, BLUE, (get_ui_position(i, j), scale * 0, 25))
+                pygame.draw.circle(surface = screen, Color = BLUE, center = (get_ui_position(i, j)),radius =  scale * 0, 25))
                 break
             else:
-                pygame.draw.circle(screen, GRAY, (get_ui_position(i, j), scale * 0, 25))
+                pygame.draw.circle(surface = screen, Color = GRAY, center = (get_ui_position(i, j)), radius =  scale * 0, 25))
                 break
 
 
