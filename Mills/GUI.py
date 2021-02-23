@@ -95,31 +95,46 @@ BLUE = (0, 0, 255)
 GRAY = (127, 127, 127)
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
-scale: int = 100
-
+scale: int = 10
+linien: int = scale/10
 
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
 def drawbackground():
-    pygame.draw.rect(screen, WHITE, (0,0, 14 * scale, 14 * scale))
-    ##4 Quadrate
-    ##Außen = list (1 * scale, 1 * scale),(1 * scale, 13 * scale),(13 * scale, 13 * scale),(13 * scale, 1 * scale)
+    pygame.draw.rect(screen, WHITE, (0, 0, 14 * scale, 14 * scale))
+    ##4 Quadrate(scale*1, scale*1) (scale*1, scale*13)(scale*13, scale*13)(scale*13, scale*1)
+    ##Außen: list =(1 * scale, 1 * scale),(1 * scale, 13 * scale),(13 * scale, 13 * scale),(13 * scale, 1 * scale)
     ##Mitte = list (3 * scale, 3 * scale),(3 * scale, 11 * scale),(11 * scale, 11 * scale),(11 * scale, 3 * scale)
     ##Innen = list (5 * scale, 5 * scale),(5 * scale, 9 * scale),(9 * scale, 9),(9 * scale, 5 * scale)
 
-    pygame.draw.lines(surface=screen, Color=BLACK, closed=True, points=[(1 * scale, 1 * scale), (1 * scale, 13 * scale), (13 * scale, 13 * scale), (13 * scale, 1 * scale)], width=scale)
-    pygame.draw.lines(surface=screen, Color=BLACK, closed=True, points=[(3 * scale, 3 * scale), (3 * scale, 11 * scale), (11 * scale, 11 * scale), (11 * scale, 3 * scale)], width=scale)
-    pygame.draw.lines(surface=screen, Color=BLACK, closed=True, points=[(5 * scale, 5 * scale), (5 * scale, 9 * scale), (9 * scale, 9 * scale), (9 * scale, 5 * scale)], width=scale)
+    #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=Außen, width=linien)
+    #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=list[(3*scale, 3*scale), (3*scale, 11*scale), (11*scale, 11*scale), (11*scale, 3*scale)], width=linien)
+    #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=list[(5*scale, 5*scale), (5*scale, 9*scale), (9*scale, 9*scale), (9*scale, 5*scale)], width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(int(scale*1),int(scale*1)), end_pos=((int(scale * 13),int(scale * 1)), width=linien))
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 13, scale * 1), end_pos=(scale * 13, scale * 13), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 13, scale * 13), end_pos=(scale * 1, scale * 13), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 1, scale * 13), end_pos=(scale * 1, scale * 1), width=linien)
 
+
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*3), end_pos=(scale*3, scale*11), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*11), end_pos=(scale*11, scale*11), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*11), end_pos=(scale*11, scale*3), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*3), end_pos=(scale*3, scale*3), width=linien)
+
+
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*5), end_pos=(scale*5, scale*9), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*9), end_pos=(scale*9, scale*9), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*9), end_pos=(scale*9, scale*5), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*5), end_pos=(scale*5, scale*5), width=linien)
     ## Verbindungen
-    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(7 * scale, 1 * scale), end_pos=(7 * scale, 5 * scale), width=scale)
-    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(1 * scale, 7 * scale), end_pos=(5 * scale, 7 * scale), width=scale)
-    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(7 * scale, 13 * scale), end_pos=(7 * scale, 9 * scale), width=scale)
-    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(13 * scale, 7 * scale), end_pos=(9 * scale, 7 * scale), width=scale)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*1), end_pos=(scale*7, scale*5), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*1, scale*7), end_pos=(scale*5, scale*7), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*13), end_pos=(scale*7, scale*9), width=linien)
+    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*13, scale*7), end_pos=(scale*9, scale*7), width=linien)
     ##Leerstellen
     for i in range(2):
         for j in range(7):
-            pygame.draw.circle(surface=screen, color=GRAY, center=get_ui_position(i, j), radius=(scale * 0, 25))
+            pygame.draw.circle(surface=screen, color=GRAY, center=get_ui_position(i, j), radius=(scale/2))
     pygame.display.update()
 
 
@@ -130,16 +145,16 @@ def updateboard(board, player):
             valid = get_legal_moves(player)
             for k in range(valid):
                 if board[i, j] == valid:
-                    pygame.draw.circle(surface=screen, Color=GREEN, center=(get_ui_position(i, j)), radius=(scale/2))
+                    pygame.draw.circle(surface=screen, color=GREEN, center=(get_ui_position(i, j)), radius=(scale/2))
                     break
             if board[i, j] == 1:
-                pygame.draw.circle(surface=screen, Color=YELLOW, center=(get_ui_position(i, j)), radius=(scale/2))
+                pygame.draw.circle(surface=screen, color=YELLOW, center=(get_ui_position(i, j)), radius=(scale/2))
                 break
             if board[i, j] == -1:
-                pygame.draw.circle(surface=screen, Color=BLUE, center=(get_ui_position(i, j)),radius=(scale/2))
+                pygame.draw.circle(surface=screen, color=BLUE, center=(get_ui_position(i, j)),radius=(scale/2))
                 break
             else:
-                pygame.draw.circle(surface=screen, Color=GRAY, center=(get_ui_position(i, j)), radius=(scale/2))
+                pygame.draw.circle(surface=screen, color=GRAY, center=(get_ui_position(i, j)), radius=(scale/2))
                 break
 
 
