@@ -117,6 +117,20 @@ GUI:
         Kreis links mittlere Ebene, Balken nach unten, oben, rechts,
         weiter rotieren in Spinnennetzmuster, wie in Ebene 1
 
+1,1 ------------- 1,7 ------------- 1,13
+ |                 |                 |
+ |    3,3 ------- 3,7 ------- 3,11   |
+ |     |           |           |     |
+ |     |    5,5 - 5,7 - 5,9    |     |
+ |     |     |           |     |     |
+7,1 - 7,3 - 7,5         7,9 - 7,11 - 7,13
+ |     |     |           |     |     |
+ |     |    9,5 - 9,7 - 9,9    |     |
+ |     |           |           |     |
+ |    11,3------- 11,7-------11,11   |
+ |                 |                 |
+13,1 -------------13,7-------------13,13
+
 2. Codefragmente als Start aus spider 4gewinnt:
     Aufrufe am Ende des Codes:
         SQUARESIZE = 100
@@ -156,6 +170,9 @@ GUI:
                 pygame.draw.circle(screen, YELLOW, (int(
                     c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
     pygame.display.update
+
+_
+
 
 Eingesetzter Code:pygame.draw.circle()
 
