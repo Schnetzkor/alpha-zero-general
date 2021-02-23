@@ -145,61 +145,110 @@ GUI:
  |                 |                 |
 13,1 -------------13,7-------------13,13
 
-def get_ui_position
-    switch (
-        case 1: [0,0] = [5,7];
-        break;
-        case 2: [0,1] = [5,9];
-        break;
-        case 3: [0,2] = [7,9];
-        break;
-        case 4: [0,3] = [9,9];
-        break;
-        case 5: [0,4] = [9,7];
-        break;
-        case 6: [0,5] = [9,5];
-        break;
-        case 7: [0,6] = [9,5];
-        break;
-        case 8: [0,7] = [5,7];
-        break;
-        case 9: [1,0] = [3,7];
-        break;
-        case 10: [1,1] = [3,11];
-        break;
-        case 11: [1,2] = [7,11];
-        break;
-        case 12: [1,3] = [11,11];
-        break;
-        case 13: [1,4] = [11,7];
-        break;
-        case 14: [1,5] = [11,3];
-        break;
-        case 15: [1,6] = [7,3];
-        break;
-        case 16: [1,7] = [3,3];
-        break;
-        case 17: [2,0] = [1,7];
-        break;
-        case 18: [2,1] = [1,13];
-        break;
-        case 19: [2,2] = [7,13];
-        break;
-        case 20: [2,3] = [13,13];
-        break;
-        case 21: [2,4] = [13,7];
-        break;
-        case 22: [2,5] = [13,1];
-        break;
-        case 23: [2,6] = [7,1];
-        break;
-        case 24: [2,7] = [1,1];
-        break;
-        case 1: [0,0] = [5,7];
 
+def get_index (coordinate)
+    switcher= {
+        1: [5,7] = [0,0],
+        2: [5,9] = [0,1],
+        3: [7,9] = [0,2],
+        4: [9,9] = [0,3],
+        5: [9,7] = [0,4],
+        6: [9,5] = [0,5],
+        7: [7,5] = [0,6],
+        8: [5,5] = [0,7],
+        9: [3,7] = [1,0],
+        10: [3,11] = [1,1],
+        11: [7,11] = [1,2],
+        12: [11,11] = [1,3],
+        13: [11,7] = [1,4],
+        14: [11,3] = [1,5],
+        15: [7,3] = [1,6],
+        16: [3,3] = [1,7],
+        17: [1,7] = [2,0],
+        18: [1,13] = [2,1],
+        19: [7,13] = [2,2],
+        20: [13,13] = [2,3],
+        21: [13,7] = [2,4],
+        22: [13,1] = [2,5],
+        23: [7,1] = [2,6],
+        24: [1,1] = [2,7]
+        }
+    return index
+
+def get_ui_position (
+    switch {
+        1: [0,0] = [5,7],
+        2: [0,1] = [5,9],
+        3: [0,2] = [7,9],
+        4: [0,3] = [9,9],
+        5: [0,4] = [9,7],
+        6: [0,5] = [9,5],
+        7: [0,6] = [7,5],
+        8: [0,7] = [5,7],
+        9: [1,0] = [3,7],
+        10: [1,1] = [3,11],
+        11: [1,2] = [7,11],
+        12: [1,3] = [11,11],
+        13: [1,4] = [11,7],
+        14: [1,5] = [11,3],
+        15: [1,6] = [7,3],
+        16: [1,7] = [3,3],
+        17: [2,0] = [1,7],
+        18: [2,1] = [1,13],
+        19: [2,2] = [7,13],
+        20: [2,3] = [13,13],
+        21: [2,4] = [13,7],
+        22: [2,5] = [13,1],
+        23: [2,6] = [7,1],
+        24: [2,7] = [1,1]
+        }
     return coordinate
 
-pygame.draw.line (screen, BLACK, (scale * 1
+
+WHITE = (255 ,255 ,255)
+BLACK = (0, 0, 0)
+YELLOW = (255, 255, 0)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+GRAY = (127, 127, 127)
+scale = 20
+
+def drawGround
+    pygame.draw.rect (screen, WHITE, 0, 14 * scale) ##Hintergrund
+    pygame.draw.lines (screen, BLACK, closed (scale * [1,1] scale * [1,13] scale * [13,13], scale*[13,1], width=scale))## 4 Quadrate
+    pygame.draw.lines (screen, BLACK, closed (scale * [3,3] scale * [3,11] scale * [11,11], scale*[11,3], width=scale))
+    pygame.draw.lines (screen, BLACK, closed (scale * [5,5] scale * [5,9] scale * [9,9], scale*[9,5], width=scale))
+
+    pygame.draw.line (screen, BLACK, (scale * [7,1] scale * [7,5] , width=scale) )## Verbindungen
+    pygame.draw.line (screen, BLACK, (scale * [1,7] scale * [5,7] , width=scale))
+    pygame.draw.line (screen, BLACK, (scale * [7,13] scale * [7,9] , width=scale))
+    pygame.draw.line (screen, BLACK, (scale * [13,7] scale * [9,7] , width=scale))
+
+    for i in range(2)
+        for j in range(7)
+            pygame.draw.circle (screen, GRAY, (getCoordinate(i,j), scale*0,25,) ##Leerstellen
+    pygame.display.update()
+
+
+
+if humanplayer=true: showValidMoves
+
+def showValidMoves ()
+    moves = get_legal_moves
+    for i in range(moves)
+        pygame.draw.circle (screen, GREEN, (getCoordinate (i), scale*0,25)) ## Zeichne legale Moves, nur für menschliche Spieler
+
+def updateBoard (Board)
+    for i in range(2)
+        for j in range (7)
+            if Board [i,j] == 1,
+                pygame.draw.circle (screen, YELLOW, (getCoordinate (i), scale*0,25))
+            if Board [i,j] == -1
+                pygame.draw.circle (screen, BLUE, (getCoordinate (i), scale*0,25))
+            else
+                pygame.draw.circle (screen, GRAY, (getCoordinate (i), scale*0,25))
+
+
 
 
 
