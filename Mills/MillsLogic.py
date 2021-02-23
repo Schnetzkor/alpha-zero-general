@@ -21,8 +21,7 @@ Based on the board for the game of Othello by Eric P. Nichols.
 
 # from bkcharts.attributes import color
 class Board():
-    # list of all 4 directions on the board, as (x,y) offsets
-    __directions = [(1, 0), (0, -1), (-1, 0), (0, 1)]
+
 
     def __init__(self, n=3):
         """Set up initial board configuration.
@@ -30,22 +29,82 @@ class Board():
 
         self.n = n
         self.m = n * 3 - 1
-        self.counter = 0
+
         # Create the empty board array.
-        self.pieces = np.zeros((n, self.m), np.int8)
-        self.gamestage = 0  # gamestage 0 = PlacingStage; 1 = Gamephase; 2 = Endgamephase
-        self.movestage = 0  # movestage 0 = choosing square, 1 moving square, 2 kicking square
-        self.last_move = 2, 7
-        self.pieces[2, 7] = -1
-        #self.pieces[2, 0] = 0
-        #self.pieces[2, 1] = -1
-        #self.pieces[2, 6] = 0
-        #self.pieces[1, 0] = -1
+        self.pieces = np.zeros((n + 1, self.m), np.int8)
+
+        # n, 0 gamestage 0 = PlacingStage; 1 = Gamephase; 2 = Endgamephase
+        # n, 1 movestage 0 = choosing square, 1 moving square, 2 kicking square
+        # n, 2 #placecounter
+        # n, 3 #drawcounter
+        # n, 4 n, 5 = lastmove
+        # n, 6 = color
+        # n, 7 = wining variable
+
 
     # add [][] indexer syntax to the Board
-    def __getitem__(self, indexI, indexJ):
+    def __getitem__(self, index):
 
-        return self.pieces[indexI][indexJ]
+        return self.pieces[index]
+
+    def get_gamestage(self, color):
+        self.determine_status()
+        return self.pieces[self.n][0]
+
+    def get_movestage(self):
+        return self.pieces[self.n][1]
+
+    def get_place_counter(self):
+        return self.pieces[self.n][2]
+
+    def get_draw_counter(self):
+        return self.pieces[self.n][3]
+
+    def get_last_move(self):
+        return self.pieces[self.n][4], self.pieces[self.n][5]
+
+    def get_color(self):
+        return self.pieces[self.n][6]
+
+    def get_win(self):
+        return self.pieces[self.n][7]
+
+
+
+
+    def end_placingstage(self):
+        self.pieces[self.n][0] = 1
+
+    def set_movestage(self, i):
+        self.pieces[self.n][1] = i
+
+    def set_win(self, i):
+        self.pieces[self.n][3] = i
+
+    def setlastmove(self, k, j):
+        self.pieces[self.n][4] = k
+        self.pieces[self.n][5] = j
+
+    def determine_status(self):
+        temp = 0
+        temp2 = 0
+        color = self.getColor()
+        for j in range(self.n):
+            for i in range(self.m):
+                if self.pieces[j][i] == color:
+                    temp = temp + 1
+                if self.pieces[j][i] == -color:
+                    temp2 = temp2 + 1
+
+        if temp2 < 3:
+            self.set_win(color)
+        elif self.counter == 50:
+            self.set_win(1e-4)
+        elif temp == 3:
+            self.pieces[self.n][0] = self.pieces[self.n][0] * 2
+        else:
+            self.pieces[self.n][0] = 1
+
 
     def get_legal_moves(self, color):
 
@@ -54,9 +113,12 @@ class Board():
         @param color not used and came from previous version.
 
         """
+        gamestage = self.get_gamestage()
+        movestage = self.get_movestage()
+
         moves = set()  # stores the legal moves.
         #put square on board
-        if (self.gamestage == 0 and self.movestage == 0) or (self.gamestage == 2 and self.movestage == 1):
+        if (gamestage == 0 and movestage == 0) or (gamestage == 2 and movestage == 1):
             # returns all empty squares
             for j in range(self.n):
                 for i in range(self.m):
@@ -64,11 +126,11 @@ class Board():
                         newmove = (j, i)
                         moves.add(newmove)
         #choose square to move
-        if self.gamestage >= 1 and self.movestage == 0:
+        if gamestage >= 1 and movestage == 0:
             for j in range(self.n):
                 for i in range(self.m):
                     if self.pieces[j][i] == color:
-                        if self.gamestage == 2:
+                        if self[self.gamestageIndex] == 2:
                             newmove = (j, i)
                             moves.add(newmove)
                         elif self.pieces[j][(i + 1) % self.m] == 0 or \
@@ -80,8 +142,8 @@ class Board():
                             newmove = (j, i)
                             moves.add(newmove)
         #moving square to
-        if self.gamestage == 1 and self.movestage == 1:
-            j, i = self.last_move
+        if gamestage == 1 and movestage == 1:
+            j, i = self.get_last_move()
             if self.pieces[j][(i + 1) % self.m] == 0:
                 newmove = (j, (i + 1) % self.m)
                 moves.add(newmove)
@@ -96,7 +158,7 @@ class Board():
                     newmove = (j - 1, i)
                     moves.add(newmove)
         #squares possible to kick from board
-        if self.movestage == 2:
+        if movestage == 2:
             for j in range(self.n):
                 for i in range(self.m):
                     newmove = j, i
@@ -109,19 +171,19 @@ class Board():
         j, i = piece
         color = self.pieces[piece]
         if i % 2 == 0:
-            if self.pieces[j, (i+1) % self.m] == color and self.pieces[j, (i + self.m - 1) % self.m] == color:
+            if self.pieces[j][(i+1) % self.m] == color and self.pieces[j][(i + self.m - 1) % self.m] == color:
                 return True
             temp = 0
             for k in range(self.n):
-                if self.pieces[k, i] == color:
+                if self.pieces[k][ i] == color:
                     temp = temp + 1
             if temp == self.n:
                 return True
         else:
-            if self.pieces[j, (i + 1) % self.m] == color and self.pieces[j, (i + 2) % self.m] == color:
+            if self.pieces[j][(i + 1) % self.m] == color and self.pieces[j][(i + 2) % self.m] == color:
                 return True
-            if self.pieces[j, (i + self.m - 1) % self.m] == color and \
-                    self.pieces[j, (i + self.m - 2) % self.m] == color:
+            if self.pieces[j][(i + self.m - 1) % self.m] == color and \
+                    self.pieces[j][(i + self.m - 2) % self.m] == color:
                 return True
         return False
 
@@ -135,9 +197,10 @@ class Board():
 
         return False
 
-    def is_win(self, color):
 
-        return False
+
+
+
 
     def end_gamestage_zero(self):
         if self.counter == self.n**2:
@@ -157,20 +220,26 @@ class Board():
                 self.end_gamestage_zero()
                 if self.is_in_mill(move):
                     self.movestage = 2
+            self.is_win(color)
+
 
         if self.movestage == 2:
-            self.pieces[x, y] == 0
+            self.pieces[x, y] = 0
+            self.is_win(color)
 
 
         if self.gamestage >= 1 and self.movestage == 0:
             self.last_move = move
             self.movestage = 1
+            self.is_win(color)
 
         if self.gamestage == 1 and self.movestage == 1:
             self.pieces[self.last_move] = 0
             self.pieces[move] = color
             if self.is_in_mill(move):
                 self.movestage = 2
+            self.is_win(color)
+            return
 
 
 
@@ -180,7 +249,7 @@ class Board():
 
 
 
-x = Board()
-y = 2, 7
-print(len(x.get_legal_moves(1)))
-print(x.get_legal_moves(1))
+
+
+
+

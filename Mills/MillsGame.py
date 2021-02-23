@@ -37,9 +37,9 @@ class MillsGame(Game):
     def getNextState(self, board, player, action):
         # if player takes action on board, return next (board,player)
         # action must be a valid move
-        if action == self.n*self.n:
+        if action == self.n*(self.n*3-1):
             return (board, -player)
-        b = Board(self.n)
+        b = board .copy
         b.pieces = np.copy(board)
         move = (int(action/self.n), action%self.n)
         b.execute_move(move, player)
@@ -48,9 +48,7 @@ class MillsGame(Game):
     def getValidMoves(self, board, player):
         # return a fixed size binary vector
         valids = [0]*self.getActionSize()
-        b = Board(self.n)
-        b.pieces = np.copy(board)
-        legalMoves =  b.get_legal_moves(player)
+        legalMoves =  board.get_legal_moves(player)
         if len(legalMoves)==0:
             valids[-1]=1
             return np.array(valids)
@@ -61,17 +59,7 @@ class MillsGame(Game):
     def getGameEnded(self, board, player):
         # return 0 if not ended, 1 if player 1 won, -1 if player 1 lost
         # player = 1
-        b = Board(self.n)
-        b.pieces = np.copy(board)
-
-        if b.is_win(player):
-            return 1
-        if b.is_win(-player):
-            return -1
-        if b.has_legal_moves():
-            return 0
-        # draw has a very little value 
-        return 1e-4
+        return board.win
 
     def getCanonicalForm(self, board, player):
         # return state if player==1, else return -state if player==-1
@@ -79,7 +67,7 @@ class MillsGame(Game):
 
     def getSymmetries(self, board, pi):
         # mirror, rotational
-        assert(len(pi) == self.n**2+1)  # 1 for pass
+        assert(len(pi) == self.n*(self.n*3-1) + 1)  # 1 for pass
         pi_board = np.reshape(pi[:-1], (self.n, self.n))
         l = []
 
