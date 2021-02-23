@@ -107,19 +107,19 @@ def drawbackground():
     ##Mitte = list (3 * scale, 3 * scale),(3 * scale, 11 * scale),(11 * scale, 11 * scale),(11 * scale, 3 * scale)
     ##Innen = list (5 * scale, 5 * scale),(5 * scale, 9 * scale),(9 * scale, 9),(9 * scale, 5 * scale)
 
-    pygame.draw.lines(surface = screen, Color = BLACK, closed = True, points = [(1 * scale, 1 * scale), (1 * scale, 13 * scale), (13 * scale, 13 * scale), (13 * scale, 1 * scale)], width = scale)
-    pygame.draw.lines(surface = screen, Color = BLACK, closed = True, points = [(3 * scale, 3 * scale), (3 * scale, 11 * scale), (11 * scale, 11 * scale), (11 * scale, 3 * scale)], width = scale)
-    pygame.draw.lines(surface = screen, Color = BLACK, closed = True, points = [(5 * scale, 5 * scale), (5 * scale, 9 * scale), (9 * scale, 9), (9 * scale, 5 * scale)], width = scale)
+    pygame.draw.lines(surface=screen, Color=BLACK, closed=True, points=[(1 * scale, 1 * scale), (1 * scale, 13 * scale), (13 * scale, 13 * scale), (13 * scale, 1 * scale)], width=scale)
+    pygame.draw.lines(surface=screen, Color=BLACK, closed=True, points=[(3 * scale, 3 * scale), (3 * scale, 11 * scale), (11 * scale, 11 * scale), (11 * scale, 3 * scale)], width=scale)
+    pygame.draw.lines(surface=screen, Color=BLACK, closed=True, points=[(5 * scale, 5 * scale), (5 * scale, 9 * scale), (9 * scale, 9 * scale), (9 * scale, 5 * scale)], width=scale)
 
     ## Verbindungen
-    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (7 * scale, 1 * scale), end_pos = (7 * scale, 5 * scale), width = scale)
-    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (1 * scale, 7 * scale), end_pos = (5 * scale, 7 * scale), width = scale)
-    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (7 * scale, 13 * scale), end_pos = (7 * scale, 9 * scale), width = scale)
-    pygame.draw.line(surface = screen, Color = BLACK, start_pos = (13 * scale, 7 * scale), end_pos = (9 * scale, 7 * scale), width = scale)
+    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(7 * scale, 1 * scale), end_pos=(7 * scale, 5 * scale), width=scale)
+    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(1 * scale, 7 * scale), end_pos=(5 * scale, 7 * scale), width=scale)
+    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(7 * scale, 13 * scale), end_pos=(7 * scale, 9 * scale), width=scale)
+    pygame.draw.line(surface=screen, Color=BLACK, start_pos=(13 * scale, 7 * scale), end_pos=(9 * scale, 7 * scale), width=scale)
     ##Leerstellen
     for i in range(2):
         for j in range(7):
-            pygame.draw.circle(surface = screen, color = GRAY, center = get_ui_position(i, j), radius = (scale * 0, 25))
+            pygame.draw.circle(surface=screen, color=GRAY, center=get_ui_position(i, j), radius=(scale * 0, 25))
     pygame.display.update()
 
 
@@ -130,16 +130,16 @@ def updateboard(board, player):
             valid = get_legal_moves(player)
             for k in range(valid):
                 if board[i, j] == valid:
-                    pygame.draw.circle(surface = screen, Color = GREEN, center = (get_ui_position(i, j)), radius =  scale * 0, 25)
+                    pygame.draw.circle(surface=screen, Color=GREEN, center=(get_ui_position(i, j)), radius=(scale/2))
                     break
             if board[i, j] == 1:
-                pygame.draw.circle(surface = screen, Color = YELLOW, center = (get_ui_position(i, j)), radius = scale * 0, 25))
+                pygame.draw.circle(surface=screen, Color=YELLOW, center=(get_ui_position(i, j)), radius=(scale/2))
                 break
             if board[i, j] == -1:
-                pygame.draw.circle(surface = screen, Color = BLUE, center = (get_ui_position(i, j)),radius =  scale * 0, 25))
+                pygame.draw.circle(surface=screen, Color=BLUE, center=(get_ui_position(i, j)),radius=(scale/2))
                 break
             else:
-                pygame.draw.circle(surface = screen, Color = GRAY, center = (get_ui_position(i, j)), radius =  scale * 0, 25))
+                pygame.draw.circle(surface=screen, Color=GRAY, center=(get_ui_position(i, j)), radius=(scale/2))
                 break
 
 
