@@ -115,12 +115,10 @@ def drawbackground():
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 13, scale * 13), end_pos=(scale * 1, scale * 13), width=linien)
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 1, scale * 13), end_pos=(scale * 1, scale * 1), width=linien)
 
-
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*3), end_pos=(scale*3, scale*11), width=linien)
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*11), end_pos=(scale*11, scale*11), width=linien)
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*11), end_pos=(scale*11, scale*3), width=linien)
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*3), end_pos=(scale*3, scale*3), width=linien)
-
 
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*5), end_pos=(scale*5, scale*9), width=linien)
     pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*9), end_pos=(scale*9, scale*9), width=linien)
