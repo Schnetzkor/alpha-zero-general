@@ -1,8 +1,8 @@
 import Arena
 from MCTS import MCTS
 
-from tictactoe.TicTacToePlayers import *
-from tictactoe.TicTacToeGame import TicTacToeGame
+from Mills.MillsPlayers import *
+from Mills.MillsGame import MillsGame
 from tictactoe.keras.NNet import NNetWrapper as NNet
 
 import numpy as np
@@ -14,8 +14,8 @@ any agent.
 """
 
 human_vs_cpu = True
-human_vs_human = False
-g = TicTacToeGame()
+human_vs_human = True
+g = MillsGame()
 
 # all players
 rp = RandomPlayer(g).play
@@ -31,7 +31,7 @@ if not human_vs_human:
     mcts1 = MCTS(g, n1, args1)
     n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
 else:
-    n1p = hp
+    n1p = rp
 if human_vs_cpu:
     player2 = hp
 else:
@@ -43,6 +43,6 @@ else:
 
     player2 = n2p  # Player 2 is neural network if it's cpu vs cpu.
 
-arena = Arena.Arena(n1p, player2, g, display=TicTacToeGame.display)
+arena = Arena.Arena(n1p, player2, g, display=MillsGame.display)
 
 print(arena.playGames(2, verbose=True))

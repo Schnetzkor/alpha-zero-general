@@ -15,6 +15,8 @@ Date: Jan 5, 2018.
 
 Based on the OthelloNNet by SourKream and Surag Nair.
 """
+
+
 class TicTacToeNNet():
     def __init__(self, game, args):
         # game params

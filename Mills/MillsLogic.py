@@ -9,7 +9,7 @@ Board data:
   first dim is column , 2nd is row:
      pieces[0][0] is the top left square,
      pieces[2][0] is the bottom left square,
-Squares are stored and manipulated as (x,y) tuples.
+Squares are stored as np.array .
 
 Author: Simon Schnecko, github.com/Schnetzkor
 Date: Feb 18, 2021.
@@ -33,13 +33,15 @@ class Board():
         # Create the empty board array.
         self.pieces = np.zeros((n + 1, self.m), np.int8)
 
+        self.pieces[n][6] = 1
+
         # n, 0 gamestage 0 = PlacingStage; 1 = Gamephase; 2 = Endgamephase
         # n, 1 movestage 0 = choosing square, 1 moving square, 2 kicking square
         # n, 2 #placecounter
         # n, 3 #drawcounter
         # n, 4 n, 5 = lastmove
-        # n, 6 = color
-        # n, 7 = wining variable
+        # n, 6 color
+        # n, 7 gamestatus 0 = going, 1 = win, 2 = lost, very small = draw
 
 
     # add [][] indexer syntax to the Board
@@ -47,7 +49,7 @@ class Board():
 
         return self.pieces[index]
 
-    def get_gamestage(self, color):
+    def get_gamestage(self):
         self.determine_status()
         return self.pieces[self.n][0]
 
@@ -69,9 +71,6 @@ class Board():
     def get_win(self):
         return self.pieces[self.n][7]
 
-
-
-
     def end_placingstage(self):
         self.pieces[self.n][0] = 1
 
@@ -79,16 +78,29 @@ class Board():
         self.pieces[self.n][1] = i
 
     def set_win(self, i):
-        self.pieces[self.n][3] = i
+        self.pieces[self.n][7] = i
 
     def setlastmove(self, k, j):
         self.pieces[self.n][4] = k
         self.pieces[self.n][5] = j
 
+    def switch_color(self):
+        self.set_movestage(0)
+        self.pieces[self.n][6] = - self.get_color()
+
+    def increment_place_counter(self):
+        self.pieces[self.n][2] = self.get_place_counter()+1
+
+    def increment_draw_counter(self):
+        self.pieces[self.n][3] = self.get_draw_counter()[3]+1
+
+    def reset_draw_counter(self):
+        self.pieces[self.n][3] = 0
+
     def determine_status(self):
         temp = 0
         temp2 = 0
-        color = self.getColor()
+        color = self.get_color()
         for j in range(self.n):
             for i in range(self.m):
                 if self.pieces[j][i] == color:
@@ -96,29 +108,27 @@ class Board():
                 if self.pieces[j][i] == -color:
                     temp2 = temp2 + 1
 
-        if temp2 < 3:
+        if temp2 < 3 and self.get_place_counter() >= (self.n**2)*2:
             self.set_win(color)
-        elif self.counter == 50:
+        elif self.get_draw_counter() >= 50:
             self.set_win(1e-4)
-        elif temp == 3:
-            self.pieces[self.n][0] = self.pieces[self.n][0] * 2
-        else:
-            self.pieces[self.n][0] = 1
+        if self.get_place_counter() >= (self.n**2)*2:
+            self.end_placingstage()
+            if temp == 3:
+                self.pieces[self.n][0] = 2
 
-
-    def get_legal_moves(self, color):
-
+    def get_legal_moves(self):
         """Returns all the legal moves for the given color.
         (1 for white, -1 for black)
-        @param color not used and came from previous version.
+
 
         """
         gamestage = self.get_gamestage()
         movestage = self.get_movestage()
-
+        color = self.get_color()
         moves = set()  # stores the legal moves.
         #put square on board
-        if (gamestage == 0 and movestage == 0) or (gamestage == 2 and movestage == 1):
+        if (gamestage == 0 and movestage < 2) or (gamestage == 2 and movestage == 1):
             # returns all empty squares
             for j in range(self.n):
                 for i in range(self.m):
@@ -130,7 +140,7 @@ class Board():
             for j in range(self.n):
                 for i in range(self.m):
                     if self.pieces[j][i] == color:
-                        if self[self.gamestageIndex] == 2:
+                        if gamestage == 2:
                             newmove = (j, i)
                             moves.add(newmove)
                         elif self.pieces[j][(i + 1) % self.m] == 0 or \
@@ -162,8 +172,15 @@ class Board():
             for j in range(self.n):
                 for i in range(self.m):
                     newmove = j, i
-                    if self.pieces[newmove] == -color and not self.is_in_mill(newmove):
+                    if self.pieces[j][i] == -color and not self.is_in_mill(newmove):
                         moves.add(newmove)
+            #if all squares are in mill squares can be taken out of mill
+            if moves == set():
+                for j in range(self.n):
+                    for i in range(self.m):
+                        newmove = j, i
+                        if self.pieces[j][i] == -color:
+                            moves.add(newmove)
 
         return list(moves)
 
@@ -175,7 +192,7 @@ class Board():
                 return True
             temp = 0
             for k in range(self.n):
-                if self.pieces[k][ i] == color:
+                if self.pieces[k][i] == color:
                     temp = temp + 1
             if temp == self.n:
                 return True
@@ -188,68 +205,56 @@ class Board():
         return False
 
     def has_legal_moves(self):
-        if self.movestage == 2 or self.gamestage == 2:
-            return True
-        isempty1 = (len(self.get_legal_moves(1)) == 0)
-        isempty2 = (len(self.get_legal_moves(-1)) == 0)
-        if not (isempty1 or isempty2):
+
+        isempty1 = (len(self.get_legal_moves()) == 0)
+        if not isempty1:
             return True
 
         return False
-
-
-
-
-
-
-    def end_gamestage_zero(self):
-        if self.counter == self.n**2:
-            self.gamestage = 1
-            self.counter = 0
-        else:
-            self.counter = self.counter + 1
 
     def execute_move(self, move, color):
         """Perform the given move on the board; 
         color gives the color pf the piece to play (1=white,-1=black)
         """
+        gamestage = self.get_gamestage()
+        movestage = self.get_movestage()
         (x, y) = move
-        if self.gamestage == 0:
-            if self.movestage == 0:
+        if gamestage == 0:
+            if movestage == 0:
                 self.pieces[x, y] = color
-                self.end_gamestage_zero()
+                self.increment_place_counter()
                 if self.is_in_mill(move):
-                    self.movestage = 2
-            self.is_win(color)
+                    self.set_movestage(2)
+                else:
+                    self.switch_color()
+            self.determine_status()
+            return
 
-
-        if self.movestage == 2:
+        if movestage == 2:
             self.pieces[x, y] = 0
-            self.is_win(color)
+            self.reset_draw_counter()
+            self.switch_color()
+            self.determine_status()
+            return
 
+        if gamestage >= 1 and movestage == 0:
+            self.setlastmove(x, y)
+            self.set_movestage(1)
+            return
 
-        if self.gamestage >= 1 and self.movestage == 0:
-            self.last_move = move
-            self.movestage = 1
-            self.is_win(color)
+        if gamestage >= 1 and movestage == 1:
+            k, l = self.get_last_move()
 
-        if self.gamestage == 1 and self.movestage == 1:
-            self.pieces[self.last_move] = 0
-            self.pieces[move] = color
+            self.pieces[k][l] = 0
+            self.pieces[x][y] = color
             if self.is_in_mill(move):
-                self.movestage = 2
-            self.is_win(color)
+                self.set_movestage(2)
+            else:
+                self.switch_color()
+                self.determine_status()
             return
 
 
-
-
-
-
-
-
-
-
-
-
-
+x = Board()
+print(len(x.get_legal_moves()))
+print(x.get_legal_moves())

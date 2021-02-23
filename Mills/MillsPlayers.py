@@ -18,6 +18,7 @@ class RandomPlayer():
         valids = self.game.getValidMoves(board, 1)
         while valids[a]!=1:
             a = np.random.randint(self.game.getActionSize())
+        print(a)
         return a
 
 
@@ -38,8 +39,8 @@ class HumanTicTacToePlayer():
             # a = raw_input()
 
             x,y = [int(x) for x in a.split(' ')]
-            a = self.game.n * x + y if x!= -1 else self.game.n ** 2
-            if valid[a]:
+            a = self.game.m * y + x if x!= -1 else self.game.n * (self.game.n * 3 - 1)
+            if a <= self.game.m * self.game.n and valid[a]:
                 break
             else:
                 print('Invalid')

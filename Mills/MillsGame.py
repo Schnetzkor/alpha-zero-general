@@ -20,15 +20,16 @@ class MillsGame(Game):
 
     def __init__(self, n=3):
         self.n = n
+        self.m = n*3-1
 
     def getInitBoard(self):
         # return initial board (numpy board)
         b = Board(self.n)
-        return np.array(b.pieces)
+        return b.pieces
 
     def getBoardSize(self):
         # (a,b) tuple
-        return self.n, self.n*3-1
+        return self.n+1, self.n*3-1
 
     def getActionSize(self):
         # return number of actions
@@ -37,38 +38,51 @@ class MillsGame(Game):
     def getNextState(self, board, player, action):
         # if player takes action on board, return next (board,player)
         # action must be a valid move
-        if action == self.n*(self.n*3-1):
-            return (board, -player)
-        b = board .copy
+        b = Board(self.n)
         b.pieces = np.copy(board)
-        move = (int(action/self.n), action%self.n)
+        if action == self.n*(self.n*3-1):
+            b.switch_color()
+            return board, b.get_color()
+
+        move = (int(action/self.m), action%self.m)
         b.execute_move(move, player)
-        return (b.pieces, -player)
+        return b.pieces, b.get_color()
 
     def getValidMoves(self, board, player):
         # return a fixed size binary vector
         valids = [0]*self.getActionSize()
-        legalMoves =  board.get_legal_moves(player)
+        b = Board(self.n)
+        b.pieces = np.copy(board)
+        legalMoves =  b.get_legal_moves()
         if len(legalMoves)==0:
             valids[-1]=1
             return np.array(valids)
         for x, y in legalMoves:
-            valids[self.n*x+y]=1
+            valids[self.m*x+y]= 1
         return np.array(valids)
 
     def getGameEnded(self, board, player):
         # return 0 if not ended, 1 if player 1 won, -1 if player 1 lost
         # player = 1
-        return board.win
+        b = Board(self.n)
+        b.pieces = np.copy(board)
+        if not b.has_legal_moves():
+            return -player
+        return b.get_win()
 
     def getCanonicalForm(self, board, player):
         # return state if player==1, else return -state if player==-1
-        return player*board
+        cf = np.copy(board)
+        for k in range(self.n):
+            for j in range(self.m):
+                cf[k][j]== cf[k][j]*player
+        cf[self.n][6] = cf[self.n][6]*player
+        return cf
 
     def getSymmetries(self, board, pi):
         # mirror, rotational
         assert(len(pi) == self.n*(self.n*3-1) + 1)  # 1 for pass
-        pi_board = np.reshape(pi[:-1], (self.n, self.n))
+        pi_board = np.reshape(pi[:-1], (self.n, self.m))
         l = []
 
         for i in range(1, 5):
@@ -87,30 +101,4 @@ class MillsGame(Game):
 
     @staticmethod
     def display(board):
-        n = board.shape[0]
-
-        print("   ", end="")
-        for y in range(n):
-            print (y,"", end="")
-        print("")
-        print("  ", end="")
-        for _ in range(n):
-            print ("-", end="-")
-        print("--")
-        for y in range(n):
-            print(y, "|",end="")    # print the row #
-            for x in range(n):
-                piece = board[y][x]    # get the piece to print
-                if piece == -1: print("X ",end="")
-                elif piece == 1: print("O ",end="")
-                else:
-                    if x==n:
-                        print("-",end="")
-                    else:
-                        print("- ",end="")
-            print("|")
-
-        print("  ", end="")
-        for _ in range(n):
-            print ("-", end="-")
-        print("--")
+        print(board)
