@@ -23,5 +23,6 @@ Zwei komplimentaere Funktionen zur Konversion von Index auf GUI und zurueck erst
 Gestaltung der GUI nach einem Koordinatensystem das skaliert werden kann. Alle Angaben in der GUI werden im Basissystem 0-14 fuer x,y erstellt und danach skaliert. Skalierung ist dabei die kleinste Einheit, die Liniengroeße.
 Updateboard als Funktion iteriert ueber das gesamte Brett, um alle Veraenderungen darstellen zu koennen.
 Problem: Registrierung von Klicks nur auf den Kreisen, nicht in Quadraten. Entscheidung, dass ueber die Abstaende in der GUI genug Differenzierung moeglich ist, plus Abfrage ob Zug erlaubt ist.
-
+Problem: Pygame.draw liest Multiplikationsergebnisse als float, erwartet aber ints. Vorläufiger fix: int-Werte hart eingetragen, so keine Skalierung. Bis sonntag sicherlich zu lösen.
+; 540 Mins; Philipp
 
