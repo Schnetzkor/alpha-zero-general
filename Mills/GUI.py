@@ -97,7 +97,7 @@ scale: int = 100
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
 
-def drawBackground:
+def drawBackground():
     pygame.draw.rect (screen, WHITE, 0, 14 * scale)
 ##4 Quadrate
     pygame.draw.lines (screen, BLACK, closed=True  ,points=((scale * [1,1]), (scale * [1,13]), (scale * [13,13]), (scale*[13,1])), width = scale)
