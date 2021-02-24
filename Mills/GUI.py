@@ -62,30 +62,30 @@ def get_index(x, y):
 
 def get_ui_position(x, y):
 
-    if [x, y] == [0, 0]: return [5, 7]
-    if [x, y] == [0, 1]: return [5, 9]
-    if [x, y] == [0, 2]: return [7, 9]
-    if [x, y] == [0, 3]: return [9, 9]
-    if [x, y] == [0, 4]: return [9, 7]
-    if [x, y] == [0, 5]: return [9, 5]
-    if [x, y] == [0, 6]: return [7, 5]
-    if [x, y] == [0, 7]: return [5, 7]
-    if [x, y] == [1, 0]: return [3, 7]
-    if [x, y] == [1, 1]: return [3, 11]
-    if [x, y] == [1, 2]: return [7, 11]
-    if [x, y] == [1, 3]: return [11, 11]
-    if [x, y] == [1, 4]: return [11, 7]
-    if [x, y] == [1, 5]: return [11, 3]
-    if [x, y] == [1, 6]: return [7, 3]
-    if [x, y] == [1, 7]: return [3, 3]
-    if [x, y] == [2, 0]: return [1, 7]
-    if [x, y] == [2, 1]: return [1, 13]
-    if [x, y] == [2, 2]: return [7, 13]
-    if [x, y] == [2, 3]: return [13, 13]
-    if [x, y] == [2, 4]: return [13, 7]
-    if [x, y] == [2, 5]: return [13, 1]
-    if [x, y] == [2, 6]: return [7, 1]
-    if [x, y] == [2, 7]: return [1, 1]
+    if [x, y] == [0, 0]: return [50, 70]
+    if [x, y] == [0, 1]: return [50, 90]
+    if [x, y] == [0, 2]: return [70, 90]
+    if [x, y] == [0, 3]: return [90, 90]
+    if [x, y] == [0, 4]: return [90, 70]
+    if [x, y] == [0, 5]: return [90, 50]
+    if [x, y] == [0, 6]: return [70, 50]
+    if [x, y] == [0, 7]: return [50, 70]
+    if [x, y] == [1, 0]: return [30, 70]
+    if [x, y] == [1, 1]: return [30, 110]
+    if [x, y] == [1, 2]: return [70, 110]
+    if [x, y] == [1, 3]: return [110, 110]
+    if [x, y] == [1, 4]: return [110, 70]
+    if [x, y] == [1, 5]: return [110, 30]
+    if [x, y] == [1, 6]: return [70, 30]
+    if [x, y] == [1, 7]: return [30, 30]
+    if [x, y] == [2, 0]: return [10, 70]
+    if [x, y] == [2, 1]: return [10, 130]
+    if [x, y] == [2, 2]: return [70, 130]
+    if [x, y] == [2, 3]: return [130, 130]
+    if [x, y] == [2, 4]: return [130, 70]
+    if [x, y] == [2, 5]: return [130, 10]
+    if [x, y] == [2, 6]: return [70, 10]
+    if [x, y] == [2, 7]: return [10, 10]
 
 
 ##------------Farbdefinition-----------------------------
@@ -97,6 +97,17 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 scale: int = 10
 linien: int = scale/10
+pygame.init()
+
+
+
+
+
+
+
+
+
+
 
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
@@ -110,25 +121,37 @@ def drawbackground():
     #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=Außen, width=linien)
     #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=list[(3*scale, 3*scale), (3*scale, 11*scale), (11*scale, 11*scale), (11*scale, 3*scale)], width=linien)
     #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=list[(5*scale, 5*scale), (5*scale, 9*scale), (9*scale, 9*scale), (9*scale, 5*scale)], width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(int(scale*1),int(scale*1)), end_pos=((int(scale * 13),int(scale * 1)), width=linien))
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 13, scale * 1), end_pos=(scale * 13, scale * 13), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 13, scale * 13), end_pos=(scale * 1, scale * 13), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale * 1, scale * 13), end_pos=(scale * 1, scale * 1), width=linien)
+    ## pygame.draw.line(surface=screen, color=BLACK, start_pos=(int(scale * 1), int(scale * 1)),end_pos=((int(scale * 13), int(scale * 1)), width(linien)))
+    pygame.draw.line (screen,BLACK, (10,10), (130, 10), 10)
+    pygame.draw.line(screen, BLACK, (130, 10), (130, 130), 10)
+    pygame.draw.line(screen, BLACK, (130, 130), (10, 130), 10)
+    pygame.draw.line(screen, BLACK, (10,  130), (10, 10), 10)
 
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*3), end_pos=(scale*3, scale*11), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*11), end_pos=(scale*11, scale*11), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*11), end_pos=(scale*11, scale*3), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*3), end_pos=(scale*3, scale*3), width=linien)
-
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*5), end_pos=(scale*5, scale*9), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*9), end_pos=(scale*9, scale*9), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*9), end_pos=(scale*9, scale*5), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*5), end_pos=(scale*5, scale*5), width=linien)
+    pygame.draw.line(screen, BLACK, (30, 30), (30, 110), 10)
+    pygame.draw.line(screen, BLACK, (30, 110), (110, 110), 10)
+    pygame.draw.line(screen, BLACK, (110,  110), (110, 30), 10)
+    pygame.draw.line(screen, BLACK, (110, 30), (30, 30), 10)
+    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*3), end_pos=(scale*3, scale*11), width=linien)
+    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*11), end_pos=(scale*11, scale*11), width=linien)
+    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*11), end_pos=(scale*11, scale*3), width=linien)
+    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*3), end_pos=(scale*3, scale*3), width=linien)
+    pygame.draw.line(screen, BLACK, (50, 50), (50, 90), 10)
+    pygame.draw.line(screen, BLACK, (50, 90), (90, 90), 10)
+    pygame.draw.line(screen, BLACK, (90,  90), (90, 50), 10)
+    pygame.draw.line(screen, BLACK, (90, 50), (50, 50), 10)
+    #pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*5), end_pos=(scale*5, scale*9), width=linien)
+   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*9), end_pos=(scale*9, scale*9), width=linien)
+   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*9), end_pos=(scale*9, scale*5), width=linien)
+   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*5), end_pos=(scale*5, scale*5), width=linien)
     ## Verbindungen
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*1), end_pos=(scale*7, scale*5), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*1, scale*7), end_pos=(scale*5, scale*7), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*13), end_pos=(scale*7, scale*9), width=linien)
-    pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*13, scale*7), end_pos=(scale*9, scale*7), width=linien)
+    pygame.draw.line(screen, BLACK, (70, 10), (70, 50), 10)
+    pygame.draw.line(screen, BLACK, (10, 70), (50, 70), 10)
+    pygame.draw.line(screen, BLACK, (70, 130), (70, 90), 10)
+    pygame.draw.line(screen, BLACK, (130, 70), (90, 70), 10)
+   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*1), end_pos=(scale*7, scale*5), width=linien)
+   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*1, scale*7), end_pos=(scale*5, scale*7), width=linien)
+   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*13), end_pos=(scale*7, scale*9), width=linien)
+    #pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*13, scale*7), end_pos=(scale*9, scale*7), width=linien)
     ##Leerstellen
     for i in range(2):
         for j in range(7):
