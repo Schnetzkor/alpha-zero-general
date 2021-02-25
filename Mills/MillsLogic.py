@@ -92,7 +92,7 @@ class Board():
         self.pieces[self.n][2] = self.get_place_counter()+1
 
     def increment_draw_counter(self):
-        self.pieces[self.n][3] = self.get_draw_counter()[3]+1
+        self.pieces[self.n][3] = self.get_draw_counter()+1
 
     def reset_draw_counter(self):
         self.pieces[self.n][3] = 0
@@ -112,6 +112,7 @@ class Board():
             self.set_win(color)
         elif self.get_draw_counter() >= 50:
             self.set_win(1e-4)
+
         if self.get_place_counter() >= (self.n**2)*2:
             self.end_placingstage()
             if temp == 3:
@@ -219,6 +220,7 @@ class Board():
         gamestage = self.get_gamestage()
         movestage = self.get_movestage()
         (x, y) = move
+        #print(self.get_draw_counter()," ", end="")
         if gamestage == 0 and movestage==0:
             if movestage == 0:
                 self.pieces[x, y] = color
@@ -250,11 +252,8 @@ class Board():
             if self.is_in_mill(move):
                 self.set_movestage(2)
             else:
+                self.increment_draw_counter()
                 self.switch_color()
                 self.determine_status()
             return
 
-
-x = Board()
-print(len(x.get_legal_moves()))
-print(x.get_legal_moves())

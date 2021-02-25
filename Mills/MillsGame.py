@@ -25,7 +25,7 @@ class MillsGame(Game):
     def getInitBoard(self):
         # return initial board (numpy board)
         b = Board(self.n)
-        return b.pieces
+        return np.array(b.pieces)
 
     def getBoardSize(self):
         # (a,b) tuple
@@ -68,6 +68,8 @@ class MillsGame(Game):
         b.pieces = np.copy(board)
         if not b.has_legal_moves():
             return -player
+        if b.get_draw_counter() >= 50:
+            return 1e-4
         return b.get_win()
 
     def getCanonicalForm(self, board, player):
@@ -81,10 +83,11 @@ class MillsGame(Game):
 
     def getSymmetries(self, board, pi):
         # mirror, rotational
-        assert(len(pi) == self.n*(self.n*3-1) + 1)  # 1 for pass
+        assert(len(pi) == (self.n)*(self.n*3-1) + 1)  # 1 for pass
         pi_board = np.reshape(pi[:-1], (self.n, self.m))
         l = []
-
+        l += [(board, pi)]
+        """""
         for i in range(1, 5):
             for j in [True, False]:
                 newB = np.rot90(board, i)
@@ -92,7 +95,7 @@ class MillsGame(Game):
                 if j:
                     newB = np.fliplr(newB)
                     newPi = np.fliplr(newPi)
-                l += [(newB, list(newPi.ravel()) + [pi[-1]])]
+                l += [(newB, list(newPi.ravel()) + [pi[-1]])]"""
         return l
 
     def stringRepresentation(self, board):
@@ -137,3 +140,4 @@ class MillsGame(Game):
             print("bewege:")
         if (board[3][1] == 2):
             print("töte:")
+
