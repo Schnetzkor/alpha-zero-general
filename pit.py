@@ -1,5 +1,6 @@
 import Arena
 from MCTS import MCTS
+
 #from tictactoe.TicTacToePlayers import *
 #from tictactoe.TicTacToeGame import TicTacToeGame
 #from tictactoe.keras.NNet import NNetWrapper as NNet
@@ -16,8 +17,8 @@ use this script to play any two agents against each other, or play manually with
 any agent.
 """
 
-human_vs_cpu = False
-human_vs_human = False
+human_vs_cpu = True
+human_vs_human = True
 g = MillsGame()
 #g = TicTacToeGame()
 # all players
@@ -46,6 +47,6 @@ else:
 
     player2 = n2p  # Player 2 is neural network if it's cpu vs cpu.
 
-arena = Arena.Arena(n1p, player2, g, display=TicTacToeGame.display)
+arena = Arena.Arena(n1p, player2, g, display=MillsGame.display)
 
 print(arena.playGames(2, verbose=True))

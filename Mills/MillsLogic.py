@@ -6,10 +6,31 @@ Default board size is 3x8.
 Board data:
 #todo
   1=white(O), -1=black(X), 0=empty
-  first dim is column , 2nd is row:
-     pieces[0][0] is the top left square,
-     pieces[2][0] is the bottom left square,
+the board is maped as follows:
+2,7 ------------- 2,0 ------------- 2,1
+ |                 |                 |
+ |    1,7 ------- 1,0 ------- 1,1    |
+ |     |           |           |     |
+ |     |    0,7 - 0,0 - 0,1    |     |
+ |     |     |           |     |     |
+2,6 - 1,6 - 0,6         0,2 - 1,2 - 2,2
+ |     |     |           |     |     |
+ |     |    0,5 - 0,4 - 0,3    |     |
+ |     |           |           |     |
+ |    1,5 ------- 1,4 ------- 1,3    |
+ |                 |                 |
+2,5 ------------- 2,4 ------------- 2,5
+
+which results in the following matrix where if 
 Squares are stored as np.array .
+Conditional Variables are stored in the same np.array as follows:
+        # n, 0 gamestage 0 = PlacingStage; 1 = Gamephase; 2 = Endgamephase
+        # n, 1 movestage 0 = choosing square, 1 moving square, 2 kicking square
+        # n, 2 #placecounter
+        # n, 3 #drawcounter
+        # n, 4 n, 5 = lastmove
+        # n, 6 color
+        # n, 7 gamestatus 0 = going, 1 = win, 2 = lost, very small = draw
 
 Author: Simon Schnecko, github.com/Schnetzkor
 Date: Feb 18, 2021.
@@ -35,13 +56,7 @@ class Board():
 
         self.pieces[n][6] = 1
 
-        # n, 0 gamestage 0 = PlacingStage; 1 = Gamephase; 2 = Endgamephase
-        # n, 1 movestage 0 = choosing square, 1 moving square, 2 kicking square
-        # n, 2 #placecounter
-        # n, 3 #drawcounter
-        # n, 4 n, 5 = lastmove
-        # n, 6 color
-        # n, 7 gamestatus 0 = going, 1 = win, 2 = lost, very small = draw
+
 
 
     # add [][] indexer syntax to the Board
