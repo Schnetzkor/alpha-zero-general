@@ -26,3 +26,7 @@ Problem: Registrierung von Klicks nur auf den Kreisen, nicht in Quadraten. Entsc
 Problem: Pygame.draw liest Multiplikationsergebnisse als float, erwartet aber ints. Vorläufiger fix: int-Werte hart eingetragen, so keine Skalierung. Bis sonntag sicherlich zu lösen.
 ; 540 Mins; Philipp**
 
+
+2021_02_25: GUI Konvertierung: Idee, ein Array zu nutzen und dort die Koordinaten reinzuschreiben, sodass funktionsaufrufe lediglich den index übergeben und einfach nur return (x,y) ausgegeben werden muss, Problem: indexierung lässt keine einfacher Iteration über das Array, mit dem es automatisch erstellt werden kann.
+Array manuell erstellt, Funktionen jetzt sehr übersichtlich
+

@@ -3,7 +3,6 @@ import math
 import numpy as np
 import sys
 
-
 # 2,7 ------------- 2,0 ------------- 2,1
 # |                 |                 |
 # |    1,7 ------- 1,0 ------- 1,1    |
@@ -32,150 +31,102 @@ import sys
 # |                 |                 |
 # 13,1 -------------13,7-------------13,13
 
+
+
+
+
 ##------------ Umwandlungstabellen zwischen Index & Koordinate------------
-def get_index(x, y):
-    if [x, y] == [5, 7]: return [0, 0]
-    if [x, y] == [5, 9]: return [0, 1]
-    if [x, y] == [7, 9]: return [0, 2]
-    if [x, y] == [9, 9]: return [0, 3]
-    if [x, y] == [9, 7]: return [0, 4]
-    if [x, y] == [9, 5]: return [0, 5]
-    if [x, y] == [7, 5]: return [0, 6]
-    if [x, y] == [5, 5]: return [0, 7]
-    if [x, y] == [3, 7]: return [1, 0]
-    if [x, y] == [3, 11]: return [1, 1]
-    if [x, y] == [7, 11]: return [1, 2]
-    if [x, y] == [11, 11]: return [1, 3]
-    if [x, y] == [11, 7]: return [1, 4]
-    if [x, y] == [11, 3]: return [1, 5]
-    if [x, y] == [7, 3]: return [1, 6]
-    if [x, y] == [3, 3]: return [1, 7]
-    if [x, y] == [1, 7]: return [2, 0]
-    if [x, y] == [1, 13]: return [2, 1]
-    if [x, y] == [7, 13]: return [2, 2]
-    if [x, y] == [13, 13]: return [2, 3]
-    if [x, y] == [13, 7]: return [2, 4]
-    if [x, y] == [13, 1]: return [2, 5]
-    if [x, y] == [7, 1]: return [2, 6]
-    if [x, y] == [1, 1]: return [2, 7]
+scale: int = 100
+line = scale/100
+
+def setscale(value):
+    scale = value
 
 
-def get_ui_position(x, y):
+def getscale():
+    return scale
 
-    if [x, y] == [0, 0]: return [50, 70]
-    if [x, y] == [0, 1]: return [50, 90]
-    if [x, y] == [0, 2]: return [70, 90]
-    if [x, y] == [0, 3]: return [90, 90]
-    if [x, y] == [0, 4]: return [90, 70]
-    if [x, y] == [0, 5]: return [90, 50]
-    if [x, y] == [0, 6]: return [70, 50]
-    if [x, y] == [0, 7]: return [50, 70]
-    if [x, y] == [1, 0]: return [30, 70]
-    if [x, y] == [1, 1]: return [30, 110]
-    if [x, y] == [1, 2]: return [70, 110]
-    if [x, y] == [1, 3]: return [110, 110]
-    if [x, y] == [1, 4]: return [110, 70]
-    if [x, y] == [1, 5]: return [110, 30]
-    if [x, y] == [1, 6]: return [70, 30]
-    if [x, y] == [1, 7]: return [30, 30]
-    if [x, y] == [2, 0]: return [10, 70]
-    if [x, y] == [2, 1]: return [10, 130]
-    if [x, y] == [2, 2]: return [70, 130]
-    if [x, y] == [2, 3]: return [130, 130]
-    if [x, y] == [2, 4]: return [130, 70]
-    if [x, y] == [2, 5]: return [130, 10]
-    if [x, y] == [2, 6]: return [70, 10]
-    if [x, y] == [2, 7]: return [10, 10]
+coordinates= np.arrange (0, 24).reshape(3,8)
+coordinates [0[0]] = (5,7)
+coordinates [0[1]] = (5,9)
+coordinates [0[2]] = (7,9)
+coordinates [0[3]] = (9,9)
+coordinates [0[4]] = (9,7)
+coordinates [0[5]] = (9,5)
+coordinates [0[6]] = (7,5)
+coordinates [0[7]] = (5,5)
+coordinates [1[0]] = (3,7)
+coordinates [1[1]] = (3,11)
+coordinates [1[2]] = (7,11)
+coordinates [1[3]] = (11,11)
+coordinates [1[4]] = (11,7)
+coordinates [1[5]] = (11,3)
+coordinates [1[6]] = (7,3)
+coordinates [1[7]] = (3,3)
+coordinates [2[0]] = (1,7)
+coordinates [2[1]] = (1,13)
+coordinates [2[2]] = (7,13)
+coordinates [2[3]] = (13,13)
+coordinates [2[4]] = (13,7)
+coordinates [2[5]] = (13,1)
+coordinates [2[6]] = (7,1)
+coordinates [2[7]] = (1,1)
 
+def get_index (gui_position):
+    gui_position = gui_position/scale
+    indexfound = np.where(coordinates==gui_position)
+    return indexfound
+
+def get_gui_position (index_position):
+    ui_position = coordinates[index_position[0], index_position[1]]
+    ui_position*scale
+    return ui_position
 
 ##------------Farbdefinition-----------------------------
-BLACK = (0, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-GRAY = (127, 127, 127)
-YELLOW = (255, 255, 0)
-WHITE = (255, 255, 255)
-scale: int = 10
-linien: int = scale/10
+BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0), (
+255, 255, 255)
+
+# BLACK=(0, 0, 0)
+# GREEN = (0, 255, 0)
+# BLUE = (0, 0, 255)
+# GRAY = (127, 127, 127)
+# YELLOW = (255, 255, 0)
+# WHITE = (255, 255, 255)
+
 pygame.init()
-
-
-
-
-
-
-
-
-
 
 
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
 def drawbackground():
-    pygame.draw.rect(screen, WHITE, (0, 0, 14 * scale, 14 * scale))
-    ##4 Quadrate(scale*1, scale*1) (scale*1, scale*13)(scale*13, scale*13)(scale*13, scale*1)
-    ##Außen: list =(1 * scale, 1 * scale),(1 * scale, 13 * scale),(13 * scale, 13 * scale),(13 * scale, 1 * scale)
-    ##Mitte = list (3 * scale, 3 * scale),(3 * scale, 11 * scale),(11 * scale, 11 * scale),(11 * scale, 3 * scale)
-    ##Innen = list (5 * scale, 5 * scale),(5 * scale, 9 * scale),(9 * scale, 9),(9 * scale, 5 * scale)
+    pygame.draw.rect(screen, WHITE, (0, 0, 14 * scale, 14 * scale)) # Hintergrund
 
-    #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=Außen, width=linien)
-    #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=list[(3*scale, 3*scale), (3*scale, 11*scale), (11*scale, 11*scale), (11*scale, 3*scale)], width=linien)
-    #pygame.draw.lines(surface=screen, color=BLACK, closed=True, points=list[(5*scale, 5*scale), (5*scale, 9*scale), (9*scale, 9*scale), (9*scale, 5*scale)], width=linien)
-    ## pygame.draw.line(surface=screen, color=BLACK, start_pos=(int(scale * 1), int(scale * 1)),end_pos=((int(scale * 13), int(scale * 1)), width(linien)))
-    pygame.draw.line(screen, BLACK, (10,10), (130, 10), 10)
-    pygame.draw.line(screen, BLACK, (130, 10), (130, 130), 10)
-    pygame.draw.line(screen, BLACK, (130, 130), (10, 130), 10)
-    pygame.draw.line(screen, BLACK, (10,  130), (10, 10), 10)
-
-    pygame.draw.line(screen, BLACK, (30, 30), (30, 110), 10)
-    pygame.draw.line(screen, BLACK, (30, 110), (110, 110), 10)
-    pygame.draw.line(screen, BLACK, (110,  110), (110, 30), 10)
-    pygame.draw.line(screen, BLACK, (110, 30), (30, 30), 10)
-    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*3), end_pos=(scale*3, scale*11), width=linien)
-    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*3, scale*11), end_pos=(scale*11, scale*11), width=linien)
-    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*11), end_pos=(scale*11, scale*3), width=linien)
-    # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*11, scale*3), end_pos=(scale*3, scale*3), width=linien)
-    pygame.draw.line(screen, BLACK, (50, 50), (50, 90), 10)
-    pygame.draw.line(screen, BLACK, (50, 90), (90, 90), 10)
-    pygame.draw.line(screen, BLACK, (90,  90), (90, 50), 10)
-    pygame.draw.line(screen, BLACK, (90, 50), (50, 50), 10)
-    #pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*5), end_pos=(scale*5, scale*9), width=linien)
-   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*5, scale*9), end_pos=(scale*9, scale*9), width=linien)
-   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*9), end_pos=(scale*9, scale*5), width=linien)
-   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*9, scale*5), end_pos=(scale*5, scale*5), width=linien)
-    ## Verbindungen
-    pygame.draw.line(screen, BLACK, (70, 10), (70, 50), 10)
-    pygame.draw.line(screen, BLACK, (10, 70), (50, 70), 10)
-    pygame.draw.line(screen, BLACK, (70, 130), (70, 90), 10)
-    pygame.draw.line(screen, BLACK, (130, 70), (90, 70), 10)
-   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*1), end_pos=(scale*7, scale*5), width=linien)
-   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*1, scale*7), end_pos=(scale*5, scale*7), width=linien)
-   # pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*7, scale*13), end_pos=(scale*7, scale*9), width=linien)
-    #pygame.draw.line(surface=screen, color=BLACK, start_pos=(scale*13, scale*7), end_pos=(scale*9, scale*7), width=linien)
-    ##Leerstellen
-    for i in range(2):
-        for j in range(7):
-            pygame.draw.circle(surface=screen, color=GRAY, center=get_ui_position(i, j), radius=(scale/2))
-    pygame.display.update()
+def drawlines():
+    for i in range(coordinates):
+        for j in range(coordinates[i]):
+            start, finish = coordinates[i][j], coordinates[i][j+1]
+            pygame.draw.line(screen, BLACK, start, finish)
+        if i%2==0:
+            start, finish = coordinates[i][j], coordinates[i+2][j]
+            pygame.draw.line(screen, BLACK, start, finish)
 
 
 ## Soll nach jedem Zug aufgerufen werden, sofern nicht jedes Mal das Board komplett neu gezeichnet werden muss? Wenn nein, werden hier nur die Veraenderungen angezeigt
 def updateboard(board, player):
-    for i in range(2):
-        for j in range(7):
+    for i in range(board):
+        for j in range(board[i]):
             valid = get_legal_moves(player)
-            for k in range(valid):
-                if board[i, j] == valid:
-                    pygame.draw.circle(surface=screen, color=GREEN, center=(get_ui_position(i, j)), radius=(scale/2))
-                    break
+            if board[i, j] == valid:
+                pygame.draw.circle(surface=screen, color=GREEN, center=(get_gui_position(i, j)), radius=(scale / 2))
+                break
             if board[i, j] == 1:
-                pygame.draw.circle(surface=screen, color=YELLOW, center=(get_ui_position(i, j)), radius=(scale/2))
+                pygame.draw.circle(surface=screen, color=YELLOW, center=(get_gui_position(i, j)), radius=(scale / 2))
                 break
             if board[i, j] == -1:
-                pygame.draw.circle(surface=screen, color=BLUE, center=(get_ui_position(i, j)),radius=(scale/2))
+                pygame.draw.circle(surface=screen, color=BLUE, center=(get_gui_position(i, j)), radius=(scale / 2))
                 break
             else:
-                pygame.draw.circle(surface=screen, color=GRAY, center=(get_ui_position(i, j)), radius=(scale/2))
+                pygame.draw.circle(surface=screen, color=GRAY, center=(get_gui_position(i, j)), radius=(scale / 2))
                 break
 
 
@@ -186,12 +137,12 @@ size = [width, height]
 screen = pygame.display.set_mode(size=size)
 drawbackground()
 myfont = pygame.font.SysFont("monospace", 75)
+
+
 ##--------------------------- Testinitialisierung -----------------------------------
-def get_legal_moves (player):
-    answer = list [2,5], [0,7], [1,3]
+def get_legal_moves(player):
+    answer = list[2, 5], [0, 7], [1, 3]
     return answer
-
-
 
 
 ## --------------Eventsteuerung, entnommen und angepasst aus Uebung 3 --------------
