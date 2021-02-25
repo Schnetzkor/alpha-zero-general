@@ -32,12 +32,10 @@ import sys
 # 13,1 -------------13,7-------------13,13
 
 
-
-
-
 ##------------ Umwandlungstabellen zwischen Index & Koordinate------------
 scale: int = 100
-line = scale/100
+line = scale / 100
+
 
 def setscale(value):
     scale = value
@@ -46,11 +44,11 @@ def setscale(value):
 def getscale():
     return scale
 
-#def buildcoordinates(board):
+
+# def buildcoordinates(board):
 
 
-
-coordinates= np.arrange (0, 24).reshape(3, 8)
+coordinates = np.arrange(0, 24).reshape(3, 8)
 coordinates[0[0]] = (5, 7)
 coordinates[0[1]] = (5, 9)
 coordinates[0[2]] = (7, 9)
@@ -76,18 +74,22 @@ coordinates[2[5]] = (13, 1)
 coordinates[2[6]] = (7, 1)
 coordinates[2[7]] = (1, 1)
 
-def get_index (gui_position):
-    gui_position = gui_position/scale
-    indexfound = np.where(coordinates==gui_position)
+
+def get_index(gui_position):
+    gui_position = gui_position / scale
+    indexfound = np.where(coordinates == gui_position)
     return indexfound
 
-def get_gui_position (index_position):
+
+def get_gui_position(index_position):
     ui_position = coordinates[index_position[0], index_position[1]]
-    ui_position*scale
+    ui_position * scale
     return ui_position
 
+
 ##------------Farbdefinition-----------------------------
-BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0),(255, 255, 255)
+BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0), (
+255, 255, 255)
 
 # BLACK=(0, 0, 0)
 # GREEN = (0, 255, 0)
@@ -102,21 +104,22 @@ pygame.init()
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
 def drawbackground():
-    pygame.draw.rect(screen, WHITE, (0, 0, 14 * scale, 14 * scale)) # Hintergrund
+    pygame.draw.rect(screen, WHITE, (0, 0, 14 * scale, 14 * scale))  # Hintergrund
+
 
 def drawlines():
     for i in range(coordinates):
         for j in range(coordinates[i]):
-            start, finish = coordinates[i][j], coordinates[i][j+1]
+            start, finish = coordinates[i][j], coordinates[i][j + 1]
             pygame.draw.line(screen, BLACK, start, finish)
-        if i%2==0:
-            start, finish = coordinates[i][j], coordinates[i+2][j]
+        if i % 2 == 0:
+            start, finish = coordinates[i][j], coordinates[i + 2][j]
             pygame.draw.line(screen, BLACK, start, finish)
 
 
 ## Soll nach jedem Zug aufgerufen werden, sofern nicht jedes Mal das Board komplett neu gezeichnet werden muss? Wenn nein, werden hier nur die Veraenderungen angezeigt
 def updateboard(board, player):
-    for i in (range(board)-1):
+    for i in (range(board) - 1):
         for j in range(board[i]):
             valid = get_legal_moves(player)
             if board[i, j] == valid:
