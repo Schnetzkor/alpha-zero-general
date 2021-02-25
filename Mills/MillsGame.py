@@ -87,15 +87,7 @@ class MillsGame(Game):
         pi_board = np.reshape(pi[:-1], (self.n, self.m))
         l = []
         l += [(board, pi)]
-        """""
-        for i in range(1, 5):
-            for j in [True, False]:
-                newB = np.rot90(board, i)
-                newPi = np.rot90(pi_board, i)
-                if j:
-                    newB = np.fliplr(newB)
-                    newPi = np.fliplr(newPi)
-                l += [(newB, list(newPi.ravel()) + [pi[-1]])]"""
+
         return l
 
     def stringRepresentation(self, board):
