@@ -46,31 +46,35 @@ def setscale(value):
 def getscale():
     return scale
 
-coordinates= np.arrange (0, 24).reshape(3,8)
-coordinates [0[0]] = (5,7)
-coordinates [0[1]] = (5,9)
-coordinates [0[2]] = (7,9)
-coordinates [0[3]] = (9,9)
-coordinates [0[4]] = (9,7)
-coordinates [0[5]] = (9,5)
-coordinates [0[6]] = (7,5)
-coordinates [0[7]] = (5,5)
-coordinates [1[0]] = (3,7)
-coordinates [1[1]] = (3,11)
-coordinates [1[2]] = (7,11)
-coordinates [1[3]] = (11,11)
-coordinates [1[4]] = (11,7)
-coordinates [1[5]] = (11,3)
-coordinates [1[6]] = (7,3)
-coordinates [1[7]] = (3,3)
-coordinates [2[0]] = (1,7)
-coordinates [2[1]] = (1,13)
-coordinates [2[2]] = (7,13)
-coordinates [2[3]] = (13,13)
-coordinates [2[4]] = (13,7)
-coordinates [2[5]] = (13,1)
-coordinates [2[6]] = (7,1)
-coordinates [2[7]] = (1,1)
+#def buildcoordinates(board):
+
+
+
+coordinates= np.arrange (0, 24).reshape(3, 8)
+coordinates[0[0]] = (5, 7)
+coordinates[0[1]] = (5, 9)
+coordinates[0[2]] = (7, 9)
+coordinates[0[3]] = (9, 9)
+coordinates[0[4]] = (9, 7)
+coordinates[0[5]] = (9, 5)
+coordinates[0[6]] = (7, 5)
+coordinates[0[7]] = (5, 5)
+coordinates[1[0]] = (3, 7)
+coordinates[1[1]] = (3, 11)
+coordinates[1[2]] = (7, 11)
+coordinates[1[3]] = (11, 11)
+coordinates[1[4]] = (11, 7)
+coordinates[1[5]] = (11, 3)
+coordinates[1[6]] = (7, 3)
+coordinates[1[7]] = (3, 3)
+coordinates[2[0]] = (1, 7)
+coordinates[2[1]] = (1, 13)
+coordinates[2[2]] = (7, 13)
+coordinates[2[3]] = (13, 13)
+coordinates[2[4]] = (13, 7)
+coordinates[2[5]] = (13, 1)
+coordinates[2[6]] = (7, 1)
+coordinates[2[7]] = (1, 1)
 
 def get_index (gui_position):
     gui_position = gui_position/scale
@@ -83,8 +87,7 @@ def get_gui_position (index_position):
     return ui_position
 
 ##------------Farbdefinition-----------------------------
-BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0), (
-255, 255, 255)
+BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0),(255, 255, 255)
 
 # BLACK=(0, 0, 0)
 # GREEN = (0, 255, 0)
@@ -113,7 +116,7 @@ def drawlines():
 
 ## Soll nach jedem Zug aufgerufen werden, sofern nicht jedes Mal das Board komplett neu gezeichnet werden muss? Wenn nein, werden hier nur die Veraenderungen angezeigt
 def updateboard(board, player):
-    for i in range(board):
+    for i in (range(board)-1):
         for j in range(board[i]):
             valid = get_legal_moves(player)
             if board[i, j] == valid:
