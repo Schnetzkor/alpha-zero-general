@@ -89,11 +89,11 @@ def testboard():
 #    return coordinates
 
 
-coordinates = np.array([np.array([(5, 7), (5, 9), (7, 9), (9, 9), (9, 7), (9, 5), (7, 5), (5, 5)]),
-                        np.array([(3, 7), (3, 11), (7, 11), (11, 11), (11, 7), (11, 3), (7, 3), (3, 3)]),
-                        np.array([(1, 7), (1, 13), (7, 13), (13, 13), (13, 7), (13, 1), (7, 1), (1, 1)])])
+coordinates = np.array([[(5, 7), (5, 9), (7, 9), (9, 9), (9, 7), (9, 5), (7, 5), (5, 5)],
+                       [(3, 7), (3, 11), (7, 11), (11, 11), (11, 7), (11, 3), (7, 3), (3, 3)],
+                        [(1, 7), (1, 13), (7, 13), (13, 13), (13, 7), (13, 1), (7, 1), (1, 1)]])
 
-coordinates = coordinates * scale
+scaled_coordinates = coordinates * scale
 
 
 # def getcoordinates(board):
@@ -126,15 +126,25 @@ coordinates = coordinates * scale
 
 
 def get_index(gui_position1, gui_position2):
-    gui_position1 = gui_position1 / scale
-    gui_position2 = gui_position2 / scale
-    indexfound = np.where(coordinates == gui_position1, gui_position2)
+    gui_position1 = int(round(gui_position1/scale))
+    gui_position2 = int(round(gui_position2/scale))
+    print (gui_position1, gui_position2)
+    search = (gui_position1, gui_position2)
+    #indexfound = np.argwhere(coordinates == [search])           # positionale 0,1 vergleich jeweils?
+
+    #indexfound = np.argwhere(((coordinates == ((int(round(gui_position1/scale)) and coordinates == int( round(gui_position2/scale)))))))
+    indexfound = np.where(np.alltrue(coordinates == search))
+    #print(int(round(gui_position1/scale)), (int(round(gui_position2/scale))))
+    #sucess = (0, 0)
+    #print(indexfound)
+    #for i in range(len(indexfound)):
+    #    if np.alltrue(indexfound[i[0]] == indexfound[i+1[0]],indexfound[i[1]] == indexfound[i+1[1]]):
+    #        sucess = (indexfound[0], indexfound[1])
     return indexfound
 
 
 def get_gui_position(index_position1, index_position2):
-    gui_position = coordinates[index_position1, index_position2]
-    gui_position * scale
+    gui_position = scaled_coordinates[index_position1, index_position2]
     return gui_position
 
 
@@ -160,10 +170,10 @@ def drawbackground():
 def drawlines():
     for i in range(3):
         for j in range(8):
-            start, finish = coordinates[i][j], coordinates[i][((j + 1) % 8)]
+            start, finish = scaled_coordinates[i][j], scaled_coordinates[i][((j + 1) % 8)]
             pygame.draw.line(screen, BLACK, start, finish, line)
             if j % 2 == 0 and i == 0:
-                start, finish = coordinates[i][j], coordinates[(i + 2)][j]
+                start, finish = scaled_coordinates[i][j], scaled_coordinates[(i + 2)][j]
                 pygame.draw.line(screen, BLACK, start, finish, line)
     pygame.display.update()
 
@@ -191,7 +201,7 @@ def updateboard(board):  # muss noch player hin
 
 
 ## ------------------------- Initialisierungsvariabeln -------------------------------
-board = np.zeros((3, 8))
+board = testboard()
 width: int = 14 * scale
 height: int = 14 * scale
 size = (width, height)
@@ -218,21 +228,20 @@ player_turn = True
 player = 1
 
 def set_piece(board, player, col, row):
-    piece = player
-    loc_col=col
-    loc_row=row
-    board[col, row] = 1
-    return board
+    place = get_index(col, row)
+    print(place)
+    #board[place] = player
+    #return board
 
 while player_turn:
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             posy = event.pos[0]
             posx = event.pos[1]
-            col = int(round(posx / scale))
-            row = int(round(posy / scale))
+            col = int(round(posx))
+            row = int(round(posy))
             print(col, row)
-            #set_piece(board, player, col, row)
+            set_piece(board, player, col, row)
             updateboard(board)
             #position = [int(math.floor(posy / scale)), int(math.floor(posx / scale))]
 
