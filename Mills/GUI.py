@@ -125,23 +125,16 @@ scaled_coordinates = coordinates * scale
 #    coordinates[2[7]] = (1, 1)
 
 
-def get_index(gui_position1, gui_position2):
+def get_index(gui_position1, gui_position2):     ## Das selbsterstellte Board hat vermute ich die Reihen und Spalten vertauscht. Sollte es zu Problemen kommen, einfach im loop rows & cols miteinander vertauschen!
     gui_position1 = int(round(gui_position1/scale))
     gui_position2 = int(round(gui_position2/scale))
-    print (gui_position1, gui_position2)
     search = (gui_position1, gui_position2)
-    #indexfound = np.argwhere(coordinates == [search])           # positionale 0,1 vergleich jeweils?
-
-    #indexfound = np.argwhere(((coordinates == ((int(round(gui_position1/scale)) and coordinates == int( round(gui_position2/scale)))))))
-    indexfound = np.where(np.alltrue(coordinates == search))
-    #print(int(round(gui_position1/scale)), (int(round(gui_position2/scale))))
-    #sucess = (0, 0)
-    #print(indexfound)
-    #for i in range(len(indexfound)):
-    #    if np.alltrue(indexfound[i[0]] == indexfound[i+1[0]],indexfound[i[1]] == indexfound[i+1[1]]):
-    #        sucess = (indexfound[0], indexfound[1])
-    return indexfound
-
+    rows = coordinates.shape[0]
+    cols = coordinates.shape[1]
+    for i in range(rows):
+        for j in range(cols):
+            if np.all(coordinates[i, j] == search):
+                return i, j
 
 def get_gui_position(index_position1, index_position2):
     gui_position = scaled_coordinates[index_position1, index_position2]
@@ -151,16 +144,6 @@ def get_gui_position(index_position1, index_position2):
 ##------------Farbdefinition-----------------------------
 BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0), (
     255, 255, 255)
-
-
-# BLACK=(0, 0, 0)
-# GREEN = (0, 255, 0)
-# BLUE = (0, 0, 255)
-# GRAY = (127, 127, 127)
-# YELLOW = (255, 255, 0)
-# WHITE = (255, 255, 255)
-
-
 ##-------------- Darstellungserstellung ----------------
 ##Hintergrund
 def drawbackground():
@@ -209,8 +192,6 @@ pygame.init()
 screen = pygame.display.set_mode(size)
 myfont = pygame.font.SysFont("monospace", 75)
 # board = write_coordinates(board)
-print(coordinates)
-print(board)
 drawbackground()
 drawlines()
 updateboard(board)
@@ -229,7 +210,9 @@ player = 1
 
 def set_piece(board, player, col, row):
     place = get_index(col, row)
+    board[place] = player
     print(place)
+    print(board)
     #board[place] = player
     #return board
 
@@ -243,6 +226,7 @@ while player_turn:
             print(col, row)
             set_piece(board, player, col, row)
             updateboard(board)
+
             #position = [int(math.floor(posy / scale)), int(math.floor(posx / scale))]
 
             # column = int(math.floor(posy / scale))
@@ -255,5 +239,3 @@ while player_turn:
             #        pygame.display.update()
             #        break
     pygame.display.update()
-# else:
-# einfach update aufrufen wenn der zug gemacht wird?
