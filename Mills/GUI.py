@@ -207,6 +207,7 @@ drawlines()
 updateboard(board)
 pygame.display.update()
 pygame.time.wait(30000)
+
 ##--------------------------- Testinitialisierung -----------------------------------
 # def get_legal_moves(player):
 #    answer = list[2, 5], [0, 7], [1, 3]
@@ -221,21 +222,20 @@ player = 1
 def set_piece(board, player, col, row):
     place = get_index(col, row)
     board[place] = player
-    print(place)
-    print(board)
+
     #board[place] = player
     #return board
-
-while player_turn:
-    for event in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            posy = event.pos[0]
-            posx = event.pos[1]
-            col = int(round(posx))
-            row = int(round(posy))
-            print(col, row)
-            set_piece(board, player, col, row)
-            updateboard(board)
+def scanning():
+    while player_turn:
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                posx = event.pos[0]
+                posy = event.pos[1]
+                col = int(round(posx))
+                row = int(round(posy))
+                print(col, row)
+                set_piece(board, player, col, row)
+                updateboard(board)
 
             #position = [int(math.floor(posy / scale)), int(math.floor(posx / scale))]
 
@@ -248,4 +248,6 @@ while player_turn:
             #        updateboard(board)
             #        pygame.display.update()
             #        break
-    pygame.display.update()
+        pygame.display.update()
+
+scanning()

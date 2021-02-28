@@ -35,7 +35,7 @@ Conditional Variables are stored in the same np.array as follows:
 Author: Simon Schnecko, github.com/Schnetzkor
 Date: Feb 18, 2021.
 
-Based on the board for the game of Othello by Eric P. Nichols.
+Based on the board for the game of Othello by Eric P. Nichs.ol
 
 '''
 
