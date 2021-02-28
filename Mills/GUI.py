@@ -59,7 +59,7 @@ def testboard():
     testboard = np.zeros((3, 8))
     return testboard
 
-
+# ---------------Überlegungen, wie eine Schnittstellentabelle automatisiert erstellt werden kann ----------
 # def write_coordinates(board):
 #    coordinates = np.copy(board)
 #    dimension = 1
@@ -98,7 +98,7 @@ def testboard():
 #        vdistance[0] + 1, hdistance[1] + 1
 #    return coordinates
 
-
+##--------------------------Fixe Schnittstelle zwischen board und GUI ----------------------
 coordinates = np.array([[(5, 7), (5, 9), (7, 9), (9, 9), (9, 7), (9, 5), (7, 5), (5, 5)],
                        [(3, 7), (3, 11), (7, 11), (11, 11), (11, 7), (11, 3), (7, 3), (3, 3)],
                         [(1, 7), (1, 13), (7, 13), (13, 13), (13, 7), (13, 1), (7, 1), (1, 1)]])
@@ -106,36 +106,6 @@ coordinates = np.array([[(5, 7), (5, 9), (7, 9), (9, 9), (9, 7), (9, 5), (7, 5),
 coordinates = np.roll(np.fliplr(coordinates), 7 , 1)
 
 scaled_coordinates = coordinates * scale
-
-
-# def getcoordinates(board):
-#    coordinates=np.copy(board)
-#    coordinates = np.zeros((3, 8))
-#    coordinates[0[0]] = (5, 7)
-#    coordinates[0[1]] = (5, 9)
-#    coordinates[0[2]] = (7, 9)
-#    coordinates[0[3]] = (9, 9)
-#    coordinates[0[4]] = (9, 7)
-#    coordinates[0[5]] = (9, 5)
-#    coordinates[0[6]] = (7, 5)
-#    coordinates[0[7]] = (5, 5)
-#    coordinates[1[0]] = (3, 7)
-#    coordinates[1[1]] = (3, 11)
-#    coordinates[1[2]] = (7, 11)
-#    coordinates[1[3]] = (11, 11)
-#    coordinates[1[4]] = (11, 7)
-#    coordinates[1[5]] = (11, 3)
-#    coordinates[1[6]] = (7, 3)
-#    coordinates[1[7]] = (3, 3)
-#    coordinates[2[0]] = (1, 7)
-#    coordinates[2[1]] = (1, 13)
-#    coordinates[2[2]] = (7, 13)
-#    coordinates[2[3]] = (13, 13)
-#    coordinates[2[4]] = (13, 7)
-#    coordinates[2[5]] = (13, 1)
-#    coordinates[2[6]] = (7, 1)
-#    coordinates[2[7]] = (1, 1)
-
 
 def get_index(gui_position1, gui_position2):     ## Das selbsterstellte Board hat vermute ich die Reihen und Spalten vertauscht. Sollte es zu Problemen kommen, einfach im loop rows & cols miteinander vertauschen!
     gui_position1 = int(round(gui_position1/scale))
@@ -160,10 +130,8 @@ def get_gui_position(index_position1, index_position2):
 BLACK, GREEN, BLUE, GRAY, YELLOW, WHITE = (0, 0, 0), (0, 255, 0), (0, 0, 255), (127, 127, 127), (255, 255, 0), (
     255, 255, 255)
 ##-------------- Darstellungserstellung ----------------
-##Hintergrund
 def drawbackground():
     pygame.draw.rect(screen, WHITE, (0, 0, 14 * scale, 14 * scale))  # Hintergrund
-
 
 def drawlines():
     for i in range(3):
@@ -175,12 +143,11 @@ def drawlines():
                 pygame.draw.line(screen, BLACK, start, finish, line)
     pygame.display.update()
 
-
 ## Soll nach jedem Zug aufgerufen werden, sofern nicht jedes Mal das Board komplett neu gezeichnet werden muss? Wenn nein, werden hier nur die Veraenderungen angezeigt
-def updateboard(board):  # muss noch player hin
-    for i in range(3):  # -1 am Ende, Extravariabeln!
+def updateboard(board):
+    for i in range(3):
         for j in range(8):
-            # valid = get_legal_moves(player)
+            # valid = get_legal_moves(player) Hier fehlt die Einbindung von legal_moves
             # if board[i, j] == valid:
             #    pygame.draw.circle(surface=screen, color=GREEN, center=(get_gui_position(i, j)), radius=(scale / 2))
             #    pygame.display.update()
@@ -193,7 +160,6 @@ def updateboard(board):  # muss noch player hin
             if board[i, j] == 0:
                 pygame.draw.circle(surface=screen, color=GRAY, center=(get_gui_position(i, j)), radius=(scale / 2))
                 pygame.display.update()
-            #    break
 
 
 ## ------------------------- Initialisierungsvariabeln -------------------------------
@@ -211,26 +177,19 @@ updateboard(board)
 pygame.display.update()
 pygame.time.wait(30000)
 
-##--------------------------- Testinitialisierung -----------------------------------
-# def get_legal_moves(player):
-#    answer = list[2, 5], [0, 7], [1, 3]
-#    return answer
-
-
 ## --------------Eventsteuerung, entnommen und angepasst aus Uebung 3 --------------
 # while board.pieces[3, 7] == 0:  ##piece [3,7]: speichert Spielzustand
 player_turn = True
 player = 1
 
 def set_piece(board, player, col, row):
-
     place = get_index(col, row)
-    print(place)
     if place != False:
         board[place] = player
+    else:
+        Message = 'Du hast eine ungültige Stelle angeklickt, versuch es nochmal auf einem leeren Feld'
+        print(Message)
 
-    #board[place] = player
-    #return board
 def scanning():
     while player_turn:
         for event in pygame.event.get():
