@@ -5,15 +5,15 @@ from Game import Game
 from .MillsLogic import Board
 import numpy as np
 import pygame
-from Mills import GUI
+#from Mills import GUI
 """
-Game class implementation for the game of TicTacToe.
-Based on the OthelloGame then getGameEnded() was adapted to new rules.
+Game class implementation for the game of Mills.
 
-Author: Evgeny Tyurin, github.com/evg-tyurin
+
+Author: Author: Simon Schnecko, github.com/Schnetzkor
 Date: Jan 5, 2018.
 
-Based on the OthelloGame by Surag Nair.
+Based on the TicTacToeGame by Evgeny Tyurin.
 """
 
 
@@ -23,11 +23,12 @@ class MillsGame(Game):
         self.n = n
         self.m = n*3-1
         self.gui = isgui
-        if self.isgui:
+        """if self.gui:
             GUI.drawbackground()
             GUI.drawlines()
             pygame.display.update()
             pygame.time.wait(30000)
+            """
 
 
     def getInitBoard(self):
@@ -124,6 +125,7 @@ class MillsGame(Game):
 
     @staticmethod
     def display(board):
+        gui = False
         #print(board)
         print(" %1d ------------- %1d ------------- %1d"% (board[2][7],board[2][0],board[2][1] ))
         print(" |              |                |")
@@ -160,6 +162,6 @@ class MillsGame(Game):
             print("bewege:")
         if (board[3][1] == 2):
             print("töte:")
-
-        GUI.updateboard(board)
-
+        """"
+            GUI.updateboard(board)
+        """
