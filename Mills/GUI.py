@@ -25,7 +25,7 @@ Based on the implementation of mills with alphazero from Simon Schnecko.
  |     |           |           |     |
  |    1,5 ------- 1,4 ------- 1,3    |
  |                 |                 |
- 2,5 ------------- 2,4 ------------- 2,5
+ 2,5 ------------- 2,4 ------------- 2,3
 
  1,1 ------------- 1,7 ------------- 1,13
  |                 |                 |
@@ -103,7 +103,7 @@ coordinates = np.array([[(5, 7), (5, 9), (7, 9), (9, 9), (9, 7), (9, 5), (7, 5),
                        [(3, 7), (3, 11), (7, 11), (11, 11), (11, 7), (11, 3), (7, 3), (3, 3)],
                         [(1, 7), (1, 13), (7, 13), (13, 13), (13, 7), (13, 1), (7, 1), (1, 1)]])
 
-#coordinates = np.roll(np.fliplr(coordinates),  , 1)
+coordinates = np.roll(np.fliplr(coordinates), 7 , 1)
 
 scaled_coordinates = coordinates * scale
 
@@ -143,12 +143,13 @@ def get_index(gui_position1, gui_position2):     ## Das selbsterstellte Board ha
     search = (gui_position1, gui_position2)
     rows = coordinates.shape[0]
     cols = coordinates.shape[1]
+    failure = False
     print(search)
     for i in range(rows):
         for j in range(cols):
             if np.all(coordinates[i, j] == search):
-                print (i,j)
                 return i, j
+    return failure
 
 def get_gui_position(index_position1, index_position2):
     gui_position = scaled_coordinates[index_position1, index_position2]
@@ -222,8 +223,11 @@ player_turn = True
 player = 1
 
 def set_piece(board, player, col, row):
+
     place = get_index(col, row)
-    board[place] = player
+    print(place)
+    if place != False:
+        board[place] = player
 
     #board[place] = player
     #return board
@@ -235,7 +239,6 @@ def scanning():
                 posy = event.pos[1]
                 col = int(round(posx))
                 row = int(round(posy))
-                print(col, row)
                 set_piece(board, player, col, row)
                 updateboard(board)
 
