@@ -1,37 +1,47 @@
 import pygame
-import math
 import numpy as np
-import sys
+'''GUI for the Game of Mills. 
+Gets the Mapping of the field as an array.
+Has a fixed conversion Array as an 2D Space on which the board is to be represented, which can be scaled as needed.
+Scans the GUI for mouseclicks, and transforms them via indexation of the unscaled Array back into
+the coordinates of the board which can be returned to commit the move of the player. 
+Graphical Representation of both Arrays (scaled Array has same Architecture, but differing dimensions.
+Ignores the additional layer of the board-Array for meta-data about the game such as stages, counters and past moves.
 
-# 2,7 ------------- 2,0 ------------- 2,1
-# |                 |                 |
-# |    1,7 ------- 1,0 ------- 1,1    |
-# |     |           |           |     |
-# |     |    0,7 - 0,0 - 0,1    |     |
-# |     |     |           |     |     |
-# 2,6 - 1,6 - 0,6         0,2 - 1,2 - 2,2
-# |     |     |           |     |     |
-# |     |    0,5 - 0,4 - 0,3    |     |
-# |     |           |           |     |
-# |    1,5 ------- 1,4 ------- 1,3    |
-# |                 |                 |
-# 2,5 ------------- 2,4 ------------- 2,5
-#
-# 1,1 ------------- 1,7 ------------- 1,13
-# |                 |                 |
-# |    3,3 ------- 3,7 ------- 3,11   |
-# |     |           |           |     |
-# |     |    5,5 - 5,7 - 5,9    |     |
-# |     |     |           |     |     |
-# 7,1 - 7,3 - 7,5         7,9 - 7,11 - 7,13
-# |     |     |           |     |     |
-# |     |    9,5 - 9,7 - 9,9    |     |
-# |     |           |           |     |
-# |    11,3------- 11,7-------11,11   |
-# |                 |                 |
-# 13,1 -------------13,7-------------13,13
+Author: Philipp Petermeier, https://github.com/PPetermeier
+Date: 28.02.2021
 
+Based on the implementation of mills with alphazero from Simon Schnecko.
 
+ 2,7 ------------- 2,0 ------------- 2,1
+ |                 |                 |
+ |    1,7 ------- 1,0 ------- 1,1    |
+ |     |           |           |     |
+ |     |    0,7 - 0,0 - 0,1    |     |
+ |     |     |           |     |     |
+ 2,6 - 1,6 - 0,6         0,2 - 1,2 - 2,2
+ |     |     |           |     |     |
+ |     |    0,5 - 0,4 - 0,3    |     |
+ |     |           |           |     |
+ |    1,5 ------- 1,4 ------- 1,3    |
+ |                 |                 |
+ 2,5 ------------- 2,4 ------------- 2,5
+
+ 1,1 ------------- 1,7 ------------- 1,13
+ |                 |                 |
+ |    3,3 ------- 3,7 ------- 3,11   |
+ |     |           |           |     |
+ |     |    5,5 - 5,7 - 5,9    |     |
+ |     |     |           |     |     |
+ 7,1 - 7,3 - 7,5         7,9 - 7,11 - 7,13
+ |     |     |           |     |     |
+ |     |    9,5 - 9,7 - 9,9    |     |
+ |     |           |           |     |
+ |    11,3------- 11,7-------11,11   |
+ |                 |                 |
+ 13,1 -------------13,7-------------13,13
+
+'''
 ##------------ Umwandlungstabellen zwischen Index & Koordinate------------
 scale: int = 100
 line = int(scale / 10)

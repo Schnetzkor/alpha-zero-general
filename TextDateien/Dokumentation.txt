@@ -30,3 +30,5 @@ Problem: Pygame.draw liest Multiplikationsergebnisse als float, erwartet aber in
 2021_02_25: GUI Konvertierung: Idee, ein Array zu nutzen und dort die Koordinaten reinzuschreiben, sodass funktionsaufrufe lediglich den index übergeben und einfach nur return (x,y) ausgegeben werden muss, Problem: indexierung lässt keine einfacher Iteration über das Array, mit dem es automatisch erstellt werden kann.
 Array manuell erstellt, Funktionen jetzt sehr übersichtlich
 
+21_02_27: Gestern & Heute Einscannen sowie Rückkonvertierung über Index der unskalierten Koordinatenmatrix implementiert. Viel einlesen in numpy dokumentation
+
