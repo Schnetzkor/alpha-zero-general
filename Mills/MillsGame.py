@@ -91,12 +91,32 @@ class MillsGame(Game):
 
     def getSymmetries(self, board, pi):
         # mirror, rotational
-        assert(len(pi) == (self.n)*(self.n*3-1) + 1)  # 1 for pass
+        assert (len(pi) == (self.n) * (self.n * 3 - 1) + 1)  # 1 for pass
         pi_board = np.reshape(pi[:-1], (self.n, self.m))
-        l = []
-        l += [(board, pi)]
+        b = np.copy(board)
+        status_board = [b[-1]]
+        playing_board = b[:-1]
 
-        return l
+        symmetries = []
+
+        for i in range(1, int((self.m / 2 + 1))):
+            # rotate around
+            rolling_board = np.roll(playing_board, i * 2, 1)
+            roling_pi = np.roll(pi_board, i * 2, 1)
+            symmetries += [(np.concatenate((rolling_board, status_board)), list(roling_pi.ravel()) + [pi[-1]])]
+            # inside out
+            ud_rolling_board = np.flipud(rolling_board)
+            ud_rolling_pi = np.flipud(roling_pi)
+            symmetries += [(np.concatenate((ud_rolling_board, status_board)), list(ud_rolling_pi.ravel()) + [pi[-1]])]
+            # mirror
+            mirror_board = np.roll(np.fliplr(playing_board), 1 + i * 2, 1)
+            mirror_pi = np.roll(np.fliplr(pi_board), 1 + i * 2, 1)
+            symmetries += [(np.concatenate((mirror_board, status_board)), list(mirror_pi.ravel()) + [pi[-1]])]
+            # inside out
+            ud_mirror_board = np.flipud(mirror_board)
+            ud_rollingM_pi = np.flipud(mirror_pi)
+            symmetries += [(np.concatenate((ud_mirror_board, status_board)), list(ud_rollingM_pi.ravel()) + [pi[-1]])]
+        return symmetries
 
     def stringRepresentation(self, board):
         # 8x8 numpy array (canonical board)
